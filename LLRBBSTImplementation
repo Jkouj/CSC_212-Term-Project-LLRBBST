@@ -1,0 +1,103 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+
+class LLRBBST {
+
+public:
+
+    typedef struct Node {
+        struct Node *left, *right; // left and right children
+        int data;                  // the element to be stored
+        bool color;                // true = red, false = black
+    } Node;
+
+    Node* root;
+
+    LLRBBST() { root = nullptr; }
+
+    void insert(int data) {
+        root = insertRecursively(root, data);
+        root->color = false;
+    }
+
+    int height() const {
+        return findHeight(root);
+    }
+
+private:
+
+    static Node* createNode(int data) {
+        Node *node = new Node();
+        node->left = node->right = nullptr;
+        node->data = data;
+        node->color = true;
+        return node;
+    }
+
+    static Node* rotateLeft(Node* node) {
+        Node *child = node->right;
+        Node *childLeft = child->left;
+        child->left = node;
+        node->right = childLeft;
+        return child;
+    }
+
+    static Node* rotateRight(Node* node) {
+        Node *child = node->left;
+        Node *childRight = child->right;
+        child->right = node;
+        node->left = childRight;
+        return child;
+    }
+
+    static bool isRed(Node *node) {
+        if (node == nullptr) return false;
+        return node->color;
+    }
+
+    static void swapColors(Node *node1, Node *node2) {
+        bool temp = node1 -> color;
+        node1->color = node2 -> color;
+        node2->color = temp;
+    }
+
+    int findHeight(Node* node) const {
+        if (node == nullptr) { return 0; }
+        int leftHeight = findHeight(node->left);
+        int rightHeight = findHeight(node->right);
+        return max(leftHeight, rightHeight) + 1;
+    }
+
+    Node* insertRecursively(Node* node, int data) {
+        if (node == nullptr) { return createNode(data); }
+        if (data < node->data) { insertRecursively(node->left, data); }
+        else if (data > node->data) { insertRecursively(node->right, data); }
+        else { return node; }
+
+        if (isRed(node->right) && !isRed(node->left)) {
+            node = rotateLeft(node);
+            swapColors(node, node->left);
+        }
+        if (isRed(node->left) && isRed(node->left->left)) {
+            node = rotateRight(node);
+            swapColors(node, node->right);
+        }
+        if (isRed(node->left) && isRed(node->right)) {
+            node->color = !node->color;
+            node->left->color = false;
+            node->right->color = false;
+        }
+        return node;
+    }
+};
+
+
+int main() {
+    auto tree = LLRBBST();
+    tree.insert(1);
+    tree.insert(2);
+    cout << tree.root->data << endl;
+}
