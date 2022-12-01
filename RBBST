@@ -1,0 +1,295 @@
+#include <iostream>
+using namespace std;
+
+enum Color { red, black };
+
+class Node {
+public:
+    int val;
+    Color color;
+    Node *left, *right, *parent;
+
+    explicit Node(int val) : val(val) {
+        parent = left = right = nullptr;
+        color = red;
+    }
+
+    Node *uncle() const {
+        if (parent == nullptr or parent->parent == nullptr) return nullptr;
+        if (parent->isOnLeft()) return parent->parent->right;
+        return parent->parent->left;
+    }
+
+    bool isOnLeft() { return this == parent->left; }
+
+    Node *sibling() {
+        if (parent == nullptr) return nullptr;
+        if (isOnLeft()) return parent->right;
+        return parent->left;
+    }
+
+    void moveDown(Node *nParent) {
+        if (parent != nullptr) {
+            if (isOnLeft()) { parent->left = nParent; }
+            else { parent->right = nParent; }
+        }
+        nParent->parent = parent;
+        parent = nParent;
+    }
+
+    bool hasRedChild() const {
+        return (left != nullptr and left->color == red) or
+               (right != nullptr and right->color == red);
+    }
+};
+
+class RBTree {
+    Node *root;
+
+    void leftRotate(Node *x) {
+        Node *nParent = x->right;
+        if (x == root) root = nParent;
+        x->moveDown(nParent);
+        x->right = nParent->left;
+        if (nParent->left != nullptr) nParent->left->parent = x;
+        nParent->left = x;
+    }
+
+    void rightRotate(Node *x) {
+        Node *nParent = x->left;
+        if (x == root) root = nParent;
+        x->moveDown(nParent);
+        x->left = nParent->right;
+        if (nParent->right != nullptr) nParent->right->parent = x;
+        nParent->right = x;
+    }
+
+    static void swapColors(Node *x1, Node *x2) {
+        Color temp;
+        temp = x1->color;
+        x1->color = x2->color;
+        x2->color = temp;
+    }
+
+    static void swapValues(Node *u, Node *v) {
+        int temp;
+        temp = u->val;
+        u->val = v->val;
+        v->val = temp;
+    }
+
+    void fixRedRed(Node *x) {
+        if (x == root) {
+            x->color = black;
+            return;
+        }
+        Node *parent = x->parent, *grandparent = parent->parent, *uncle = x->uncle();
+        if (parent->color != black) {
+            if (uncle != nullptr && uncle->color == red) {
+                parent->color = black;
+                uncle->color = black;
+                grandparent->color = red;
+                fixRedRed(grandparent);
+            } else {
+                if (parent->isOnLeft()) {
+                    if (x->isOnLeft()) {
+                        swapColors(parent, grandparent);
+                    } else {
+                        leftRotate(parent);
+                        swapColors(x, grandparent);
+                    }
+                    rightRotate(grandparent);
+                } else {
+                    if (x->isOnLeft()) {
+                        rightRotate(parent);
+                        swapColors(x, grandparent);
+                    } else {
+                        swapColors(parent, grandparent);
+                    }
+                    leftRotate(grandparent);
+                }
+            }
+        }
+    }
+
+    static Node *successor(Node *x) {
+        Node *temp = x;
+        while (temp->left != nullptr) temp = temp->left;
+        return temp;
+    }
+
+    static Node *replace(Node *x) {
+        if (x->left != nullptr and x->right != nullptr) return successor(x->right);
+        if (x->left == nullptr and x->right == nullptr) return nullptr;
+        if (x->left != nullptr) return x->left;
+        return x->right;
+    }
+
+    void deleteNode(Node *v) {
+        Node *u = replace(v);
+        bool uvBlack = ((u == nullptr or u->color == black) and (v->color == black));
+        Node *parent = v->parent;
+        if (u == nullptr) {
+            if (v == root) {
+                root = nullptr;
+            } else {
+                if (uvBlack) { fixDoubleBlack(v); }
+                else if (v->sibling() != nullptr) { v->sibling()->color = red; }
+                if (v->isOnLeft()) parent->left = nullptr;
+                else parent->right = nullptr;
+            }
+            delete v;
+            return;
+        }
+
+        if (v->left == nullptr or v->right == nullptr) {
+            if (v == root) {
+                v->val = u->val;
+                v->left = v->right = nullptr;
+                delete u;
+            } else {
+                if (v->isOnLeft()) parent->left = u;
+                else parent->right = u;
+                delete v;
+                u->parent = parent;
+                if (uvBlack) fixDoubleBlack(u);
+                else u->color = black;
+            }
+            return;
+        }
+        swapValues(u, v);
+        deleteNode(u);
+    }
+
+    void fixDoubleBlack(Node *x) {
+        if (x == root) return;
+        Node *sibling = x->sibling(), *parent = x->parent;
+        if (sibling == nullptr) {
+            fixDoubleBlack(parent);
+        } else {
+            if (sibling->color == red) {
+                parent->color = red;
+                sibling->color = black;
+                if (sibling->isOnLeft()) { rightRotate(parent); }
+                else { leftRotate(parent); }
+                fixDoubleBlack(x);
+            } else {
+                if (sibling->hasRedChild()) {
+                    if (sibling->left != nullptr and sibling->left->color == red) {
+                        if (sibling->isOnLeft()) {
+                            sibling->left->color = sibling->color;
+                            sibling->color = parent->color;
+                            rightRotate(parent);
+                        } else {
+                            sibling->left->color = parent->color;
+                            rightRotate(sibling);
+                            leftRotate(parent);
+                        }
+                    } else {
+                        if (sibling->isOnLeft()) {
+                            sibling->right->color = parent->color;
+                            leftRotate(sibling);
+                            rightRotate(parent);
+                        } else {
+                            sibling->right->color = sibling->color;
+                            sibling->color = parent->color;
+                            leftRotate(parent);
+                        }
+                    }
+                    parent->color = black;
+                } else {
+                    sibling->color = red;
+                    if (parent->color == black) fixDoubleBlack(parent);
+                    else parent->color = black;
+                }
+            }
+        }
+    }
+
+    void inorder(Node *x) {
+        if (x == nullptr) return;
+        inorder(x->left);
+        cout << x->val << " ";
+        inorder(x->right);
+    }
+
+public:
+    RBTree() { root = nullptr; }
+
+    Node *search(int n) {
+        Node *temp = root;
+        while (temp != nullptr) {
+            if (n < temp->val) {
+                if (temp->left == nullptr) break;
+                else temp = temp->left;
+            } else if (n == temp->val) {
+                break;
+            } else {
+                if (temp->right == nullptr) break;
+                else temp = temp->right;
+            }
+        }
+        return temp;
+    }
+
+    void insert(int n) {
+        Node *newNode = new Node(n);
+        if (root == nullptr) {
+            newNode->color = black;
+            root = newNode;
+        } else {
+            Node *temp = search(n);
+            if (temp->val == n) { return; }
+            newNode->parent = temp;
+            if (n < temp->val) temp->left = newNode;
+            else temp->right = newNode;
+            fixRedRed(newNode);
+        }
+    }
+
+    void deleteByVal(int n) {
+        if (root == nullptr) return;
+        Node *v = search(n);
+        if (v->val != n) {
+            cout << "No node found to delete with value:" << n << endl;
+            return;
+        }
+        deleteNode(v);
+    }
+
+    void printInOrder() {
+        cout << "Inorder: " << endl;
+        if (root == nullptr) cout << "Tree is empty" << endl;
+        else inorder(root);
+        cout << endl;
+    }
+};
+
+int main() {
+    RBTree tree;
+
+    tree.insert(7);
+    tree.insert(3);
+    tree.insert(18);
+    tree.insert(10);
+    tree.insert(22);
+    tree.insert(8);
+    tree.insert(11);
+    tree.insert(26);
+    tree.insert(2);
+    tree.insert(6);
+    tree.insert(13);
+
+    tree.printInOrder();
+
+    cout<<endl<<"Deleting 18, 11, 3, 10, 22"<<endl;
+
+    tree.deleteByVal(18);
+    tree.deleteByVal(11);
+    tree.deleteByVal(3);
+    tree.deleteByVal(10);
+    tree.deleteByVal(22);
+
+    tree.printInOrder();
+    return 0;
+}
