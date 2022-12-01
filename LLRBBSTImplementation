@@ -2,12 +2,8 @@
 #include <algorithm>
 using namespace std;
 
-
-
 class LLRBBST {
-
 public:
-
     typedef struct Node {
         struct Node *left, *right; // left and right children
         int data;                  // the element to be stored
@@ -21,10 +17,6 @@ public:
     void insert(int data) {
         root = insertRecursively(root, data);
         root->color = false;
-    }
-
-    int height() const {
-        return findHeight(root);
     }
 
 private:
@@ -62,13 +54,6 @@ private:
         bool temp = node1 -> color;
         node1->color = node2 -> color;
         node2->color = temp;
-    }
-
-    int findHeight(Node* node) const {
-        if (node == nullptr) { return 0; }
-        int leftHeight = findHeight(node->left);
-        int rightHeight = findHeight(node->right);
-        return max(leftHeight, rightHeight) + 1;
     }
 
     Node* insertRecursively(Node* node, int data) {
