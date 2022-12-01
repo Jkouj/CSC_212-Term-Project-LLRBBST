@@ -1,0 +1,104 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    Node* left;
+    Node* right;
+    int thing;
+};
+
+class BST {
+public:
+
+    BST() { root = nullptr; }
+
+    void insert(int thing) {
+        // Find where to insert the node
+        Node **current = &root;
+        while (*current != nullptr) {
+            if (thing < (*current)->thing) current = &(*current)->left;
+            else current = &(*current)->right;
+        }
+        // Create node and insert it
+        Node* newNode = (Node*)malloc(sizeof(Node));
+        newNode->thing = thing;
+        newNode->left = newNode->right = nullptr;
+        *current = newNode;
+    }
+
+    void remove(int thing) {
+        root = removeNode(root, thing);
+    }
+
+    int search(int thing) {
+        Node **current = &root;
+        while (*current) {
+            if (thing < (*current)->thing) current = &(*current)->left;
+            else if (thing > (*current)->thing) current = &(*current)->right;
+            else return (*current)->thing;
+        }
+        return -1;
+    }
+
+    void print() const {
+        cout << "list: ";
+        traverse(root);
+        cout << endl;
+    }
+private:
+
+    Node* root;
+
+    static void replaceWithSuccessor(Node* node) {
+        // Find node's inorder successor
+        Node* successor = node->right;
+        Node* succParent = nullptr;
+        while (successor->left != nullptr) {
+            succParent = successor;
+            successor = successor->left;
+        }
+        // Replace node with successor
+        if (succParent != nullptr) succParent->left = successor->right;
+        else node->right = successor->right;
+        node->thing = successor->thing;
+        free(successor);
+    }
+
+    static Node* removeNode(Node* start, int thing) {
+        // Find node to be removed
+        Node* node = start;
+        Node* parent = nullptr;
+        while (node != nullptr && node->thing != thing) {
+            parent = node;
+            node = (thing < node->thing ? node->left : node->right);
+        }
+        // Process node's connections
+        if (node == nullptr) return start;
+        if (node->left == nullptr || node->right == nullptr) {
+            // Node has less than 2 children
+            Node* child = node->left == nullptr ? node->right : node->left;
+            if (parent == nullptr) return child;
+            if (node == parent->left) parent->left = child;
+            else parent->right = child;
+            free(node);
+        }
+        else {
+            // Node has 2 children
+            replaceWithSuccessor(node);
+        }
+        return start;
+    }
+
+    void traverse(Node* node) const {
+        if (node == nullptr) { return; }
+        traverse(node->left);
+        cout << node->thing << " ";
+        traverse(node->right);
+    }
+};
+
+
+int main() {
+    BST tree = BST();
+}
