@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class List {
+public:
+    List() { length = 0; }
+    // Appends the given thing to the list.
+    void append(int thing) {
+        vec.push_back(thing);
+        length++;
+    }
+    // Deletes the last element from the list.
+    void pop() {
+        if (length == 0) return;
+        vec.pop_back();
+        length--;
+    }
+    // Inserts the given thing into the list at the given index.
+    void insert(int thing, int index) {
+        if (index < 1 || index > length) return;
+        vec.insert(vec.begin() + index - 1, thing);
+        length++;
+    }
+    // Deletes the element at the given index from the list.
+    void remove(int index) {
+        if (length == 0) return;
+        if (index < 1 || index > length) return;
+        vec.erase(vec.begin() + index - 1);
+        length--;
+    }
+    // Returns the index of the given thing in the list, or -1 if the given thing isn't in the list.
+    int search(int thing) const {
+        for (int i = 0; i < length; i++) {
+            if (vec[i] == thing) return i;
+        }
+        return -1;
+    }
+    // Returns the element at the given index, or -1 if the given index is invalid.
+    int access(int index) const {
+        if (index < 1 || index > length) {
+            cout << "ERROR: invalid index" << endl;
+            exit(0);
+        }
+        return vec[index - 1];
+    }
+    // Prints the contents of the list to the console.
+    void print() {
+        cout << "list: ";
+        for (int i = 0; i < length; i++) {
+            cout << vec[i] << " ";
+        }
+        cout << endl;
+    }
+private:
+    int length;
+    vector<int> vec;
+};
+
+int main() {
+    List list = List();
+}
