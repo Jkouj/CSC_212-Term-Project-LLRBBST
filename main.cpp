@@ -48,8 +48,6 @@ public:
         slide29Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
         slide30Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
         slide34Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-    }
-    void load() {
         loadTexture("", boxTxr);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
         loadTextureGroup("", errorTxrs, 4);
@@ -73,44 +71,28 @@ void animate(sf::Sprite sprite, Txr *textures, int *durations) {
 void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
     // invalidate animation timer
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
-    if (slideIndex == 24) {
-        slideGif.setPosition();
+    } else if (slideIndex == 23) {
         slideGif.resize();
-        slideGif.setTexture();
-        // animate slideGif
-    } else if (slideIndex == 24) {
         slideGif.setPosition();
+        animate(slideGif, textureStore.slide24, textureStore.slide24Times);
+    } else if (slideIndex == 27) {
         slideGif.resize();
-        slideGif.setTexture();
-        // animate slideGif
+        slideGif.setPosition();
+        animate(slideGif, textureStore.slide28, textureStore.slide28Times);
     } else if (slideIndex == 28) {
-        slideGif.setPosition();
         slideGif.resize();
-        slideGif.setTexture();
-        // animate slideGif
+        slideGif.setPosition();
+        animate(slideGif, textureStore.slide29, textureStore.slide29Times);
     } else if (slideIndex == 29) {
-        slideGif.setPosition();
         slideGif.resize();
-        slideGif.setTexture();
-        // animate slideGif
-    } else if (slideIndex == 30) {
         slideGif.setPosition();
+        animate(slideGif, textureStore.slide30, textureStore.slide30Times);
+    } else if (slideIndex == 33) {
         slideGif.resize();
-        slideGif.setTexture();
-        // animate slideGif
-    } else if (slideIndex == 34) {
         slideGif.setPosition();
-        slideGif.resize();
-        slideGif.setTexture();
-        // animate slideGif
+        animate(slideGif, textureStore.slide34, textureStore.slide34Times);
     } else {
-        
-    }
-    int gifSlides[6] = { 6, 9, 12, 15, 31, 43 };
-    for (int i = 0; i < 6; i++) {
-        if (slideIndex == gifSlides[i]) {
-            // animate gif
-        }
+        // make slideGif invisible
     }
 }
 
@@ -127,7 +109,6 @@ bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
 int main() {
     // Load textures
     TextureStore textureStore = TextureStore();
-    textureStore.load();
     // Load pixil font
     sf::Font pixilFont;
     pixilFont.loadFromFile("/Users/Joey/CLionProjects/HelloSFML/pixilfont.ttf");
