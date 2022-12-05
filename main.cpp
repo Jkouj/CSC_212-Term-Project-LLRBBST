@@ -26,6 +26,13 @@ void wait(int ms) {
     this_thread::sleep_for(chrono::milliseconds(ms));
 }
 
+void animateSprite(sf::Sprite &sprite, vector<sf::Texture> &textures, vector<int> &durations, int numTextures) {
+    for (int i = 0; i < numTextures; i++) {
+        sprite.setTexture(textures[i]);
+        wait(durations[i]);
+    }
+}
+
 bool isOver(sf::Sprite &sprite, sf::RenderWindow &window) {
     float x = (float)sf::Mouse::getPosition(window).x;
     float y = (float)sf::Mouse::getPosition(window).y;
