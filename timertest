@@ -1,0 +1,77 @@
+using namespace std;
+ #include <iostream>
+ #include <chrono>
+ #include <string>
+ #include <ctime>
+ #include <cmath>
+
+//Ignore this commented out stuff this was a failed attempt.
+// auto time = std::chrono::milliseconds(25);
+// bool test = true;
+
+// void timer(time) {
+//     while(test == true) {
+        
+//         cout << time << endl;
+//     }
+// }
+
+// int main() {
+//     timer(time);
+//     return 0;
+// }
+class Timer {
+    
+    public:
+    
+        void startTimer() {
+            m_StartTime = std::chrono::system_clock::now();
+            m_bRunning = true;
+        }
+
+        void stopTimer() {
+            m_EndTime = std::chrono::system_clock::now();
+            m_bRunning = false;
+        }
+
+        double elapsedMilliseconds() {
+            std::chrono::time_point<std::chrono::system_clock> endTime;
+        
+            if(m_bRunning) {
+                endTime = std::chrono::system_clock::now();
+            }
+            else {
+                endTime = m_EndTime;
+            }
+        
+            return std::chrono::duration_cast<std::chrono::milliseconds>(endTime - m_StartTime).count();
+        }
+    
+        double elapsedSeconds() {
+            return elapsedMilliseconds() / 1000.0;
+        }
+    
+    private:
+    
+        std::chrono::time_point<std::chrono::system_clock> m_StartTime;
+        std::chrono::time_point<std::chrono::system_clock> m_EndTime;
+        bool m_bRunning = false;
+};
+
+int main() {
+    Timer timer;
+    timer.startTimer();
+    int counter = 0;
+    double test, test2;
+    while(timer.elapsedSeconds() < 10.0) {
+        counter++;
+        test = std::cos(counter / M_PI);
+        test2 = std::sin(counter / M_PI);
+    }
+    timer.stopTimer();
+    
+    std::cout << counter << std::endl;
+    std::cout << "Seconds: " << timer.elapsedSeconds() << std::endl;
+    std::cout << "Milliseconds: " << timer.elapsedMilliseconds() << std::endl
+    ;
+}
