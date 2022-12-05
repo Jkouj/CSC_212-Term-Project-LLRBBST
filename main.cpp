@@ -7,10 +7,6 @@
 #include <thread>
 #include <chrono>
 
-// These definitions aren't ever used
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
-
 // Added this function
 void setSprite(sf::Sprite &sprite, sf::Texture &texture, int x, int y, int width, int height) {
     sprite.setPosition(x, y);
@@ -64,7 +60,7 @@ int main() {
     sf::Texture errorTextures[4];
     sf::Texture boxTexture;
     sf::Texture buttonTextures[18];
-    sf::Texture textfieldTextures[5];
+    sf::Texture textfieldBGTextures[5];
     // Load all animated textures
     sf::Texture slide24Gif[3];
     sf::Texture slide28Gif[29];
@@ -72,8 +68,9 @@ int main() {
     sf::Texture slide30Gif[82];
     sf::Texture slide34Gif[17];
     // slide 41 gif WIP
-    // - all gifs used in the diagrams
-    
+    sf::Texture textfieldOpenTextures[25];
+    sf::Texture textfieldCloseTextures[20];
+    sf::Texture textfieldPromptTextures[];
 
     sf::RenderWindow window;
     // What does this line below do? Document what those numbers mean
