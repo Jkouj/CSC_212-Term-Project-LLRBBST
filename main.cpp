@@ -84,8 +84,8 @@ void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, 
     } else if (slideIndex == 43) {
         // diagram 6
     } else if (slideIndex == 23) {
-        slideGif.resize();
-        slideGif.setPosition();
+        slideGif.resize(60, 59);
+        slideGif.setPosition(68, 0);
         animate(slideGif, textureStore.slide24, textureStore.slide24Times);
     } else if (slideIndex == 27) {
         slideGif.resize();
@@ -104,7 +104,7 @@ void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, 
         slideGif.setPosition();
         animate(slideGif, textureStore.slide34, textureStore.slide34Times);
     } else {
-        // make slideGif invisible
+        // disable slideGif
     }
 }
 
@@ -140,9 +140,9 @@ int main() {
     textbox1.setPosition({100, 100});
     textbox1.setLimit(true, 10);
 
-//     Button button1(" 4 ", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-//     button1.setPosition({0, 0});
-//     button1.setFont(pixilFont);
+    Button appendButton("append", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+    appendButton.setPosition({0, 0});
+    appendButton.setFont(pixilFont);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -150,27 +150,27 @@ int main() {
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
-//                case sf::Event::TextEntered:
-//                    textbox1.typed(event);
+               case sf::Event::TextEntered:
+                   textbox1.typed(event);
                     break;
-//                case sf::Event::MouseMoved:
-//                    if (button1.isHovering(window)) {
-//                        //image.setTexture(gif2);
-//                    } else {
-//                        //image.setTexture(gif1);
-//                    }
-//                    break;
+               case sf::Event::MouseMoved:
+                   if (button1.isHovering(window)) {
+                       //image.setTexture(gif2);
+                   } else {
+                       //image.setTexture(gif1);
+                   }
+                   break;
 
-//                case sf::Event::MouseButtonPressed:
-//                    if (button1.isHovering(window)){
-//                        //image.setTexture(gif2);
-//                        std::cout << "You clicked the button" << std::endl;
-//                    }
+               case sf::Event::MouseButtonPressed:
+                   if (button1.isHovering(window)){
+                       //image.setTexture(gif2);
+                       std::cout << "You clicked the button" << std::endl;
+                   }
 
-//                case sf::Event::MouseButtonReleased:
-//                        if (button1.isHovering(window)){
-//                            image.setTexture(gif1);
-//                        }
+               case sf::Event::MouseButtonReleased:
+                       if (button1.isHovering(window)){
+                           image.setTexture(gif1);
+                       }
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
