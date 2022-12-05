@@ -38,7 +38,7 @@ int main() {
     sf::RenderWindow window;
     sf::Vector2i centerWindow((sf::VideoMode::getDesktopMode().width / 2) - 1280,
                               (sf::VideoMode::getDesktopMode().height / 2) - 900);
-    window.create(sf::VideoMode(2560, 1600), "SFML Project");
+    window.create(sf::VideoMode(1280, 720), "SFML Project");
     window.setPosition(centerWindow);
     window.setKeyRepeatEnabled(true);
 
@@ -94,7 +94,9 @@ int main() {
 //                            image.setTexture(gif);
 //                        }
                 case sf::Event::KeyPressed:
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                         if (image.getTexture() == &slides[45]) {
                             //nothing
                         } else {
@@ -102,7 +104,9 @@ int main() {
                             image.setTexture(slides[current]);
                         }
                     }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+                            sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+                            sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
                         if (image.getTexture() == &slides[1]){
                             //nothing
                         }
