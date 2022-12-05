@@ -89,36 +89,37 @@ public:
     }
 };
 
-
-void animate(sf::Sprite sprite, Txr *textures, int *durations) {
-    
-}
-
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield) {
-    // invalidate animation timer
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield, Txr *animationTxrs, int *animationTimes) {
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
     if (slideIndex == 23) {
         slideGif.resize(60, 59);
         slideGif.setPosition(68, 0);
         animate(slideGif, textureStore.slide24, textureStore.slide24Times);
+        animationTxrs = textureStore.slide24;
+        animationTimes = textureStore.slide24Times;
     } else if (slideIndex == 27) {
         slideGif.resize(20, 25);
         slideGif.setPosition(108, 0);
-        animate(slideGif, textureStore.slide28, textureStore.slide28Times);
+        animationTxrs = textureStore.slide28;
+        animationTimes = textureStore.slide28Times;
     } else if (slideIndex == 28) {
         slideGif.resize(20, 35);
         slideGif.setPosition(108, 0);
-        animate(slideGif, textureStore.slide29, textureStore.slide29Times);
+        animationTxrs = textureStore.slide29;
+        animationTimes = textureStore.slide29Times;
     } else if (slideIndex == 29) {
         slideGif.resize(20, 35);
         slideGif.setPosition(108, 0);
-        animate(slideGif, textureStore.slide30, textureStore.slide30Times);
+        animationTxrs = textureStore.slide30;
+        animationTimes = textureStore.slide30Times;
     } else if (slideIndex == 33) {
         slideGif.resize(25, 35);
         slideGif.setPosition(103, 0);
-        animate(slideGif, textureStore.slide34, textureStore.slide34Times);
+        animationTxrs = textureStore.slide34;
+        animationTimes = textureStore.slide34Times;
     } else {
-        // make slideGif invisible
+        animationTxrs = NULL;
+        animationTimes = NULL;
     }
 }
 
@@ -148,17 +149,15 @@ int main() {
     sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
     
-    Textbox textbox1(sf::Color::Red, 50, false);
+    Textbox textfield(sf::Color::Red, 50, false);
     textbox1.setFont(pixilFont);
     textbox1.setPosition({100, 100});
-    textbox1.setLimit(true, 10);
-
-    int currentDiagram = 0;
+            
+    Timer animationTimer = Timer();
+    Txr *animationTxrs;
+    int *animationTimes;
     
-    setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfieldBG, textfield, appendButton, popButton, insertButton, deleteButton, ccessButton, removeButton, errorPopup, currentDiagram);
-    
-    List list = List();
-    OrderedList orderedList = OrderedList();
+    setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
     
     while (window.isOpen()) {
         sf::Event event;
@@ -176,14 +175,14 @@ int main() {
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                         if (current != 45) {
-                            current++;
-                            setCurrentSlide(currentSlide, slides, image);
+                            slideIndex++;
+                            setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
                         }
                     }
                     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
                         if (current != 0) {
-                            current--;
-                            setCurrentSlide(currentSlide);
+                            slideIndex--;
+                            setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
                         }
                     }
             }
