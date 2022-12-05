@@ -116,8 +116,8 @@ void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, 
         animationTxrs = textureStore.slide34;
         animationTimes = textureStore.slide34Times;
     } else {
-        animationTxrs = NULL;
-        animationTimes = NULL;
+        animationTxrs.clear();
+        animationTimes.clear();
     }
 }
 
@@ -151,11 +151,13 @@ int main() {
     textbox1.setFont(pixilFont);
     textbox1.setPosition({100, 100});
             
-    Timer animationTimer = Timer();
     Txr *animationTxrs;
     int *animationTimes;
     
     setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
+    if (!animationTxrs.empty()) {
+        slideGif.setTexture(animationTxrs[0]);
+    }
     
     while (window.isOpen()) {
         sf::Event event;
@@ -185,9 +187,9 @@ int main() {
             }
         }
         window.clear(sf::Color(0, 0, 0, 255));
-        window.draw(image);
-        //textbox1.drawTo(window);
-        //button1.drawTo(window);
+        window.draw(slideBG);
+        window.draw(slideGif);
+        textfield.drawTo(window);
         window.display();
     }
     cout << "Window was closed" << endl;
