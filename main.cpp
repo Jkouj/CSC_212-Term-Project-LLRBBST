@@ -52,6 +52,7 @@ void getSlides(std::vector<sf::Texture> &slides, int numSlides) {
     }
 }
 
+// Added this function
 void setCurrentSlide(int currentSlide, std::vector<sf::Texture> &slides, sf::Sprite image) {
     image.setTexture(slides[current]);
 }
