@@ -68,22 +68,23 @@ void animate(sf::Sprite sprite, Txr *textures, int *durations) {
     
 }
 
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, sf::Sprite &textfieldBG, Textbox &textfield, sf::Sprite &appendButton, sf::Sprite &popButton, sf::Sprite &insertButton, sf::Sprite &deleteButton, sf::Sprite &accessButton, sf::Sprite &removeButton, sf::Sprite &errorPopup) {
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, sf::Sprite &textfieldBG, Textbox &textfield, sf::Sprite &appendButton, sf::Sprite &popButton, sf::Sprite &insertButton, sf::Sprite &deleteButton, sf::Sprite &accessButton, sf::Sprite &removeButton, sf::Sprite &errorPopup, int &currentDiagram) {
     // invalidate animation timer
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
     if (slideIndex == 6) {
-        // diagram 1
+        currentDiagram = 1;
     } else if (slideIndex == 9) {
-        // diagram 2
+        currentDiagram = 2;
     } else if (slideIndex == 12) {
-        // diagram 3
+        currentDiagram = 3;
     } else if (slideIndex == 15) {
-        // diagram 4
+        currentDiagram = 4;
     } else if (slideIndex == 31) {
-        // diagram 5
+        currentDiagram = 5;
     } else if (slideIndex == 43) {
-        // diagram 6
+        currentDiagram = 6;
     } else {
+        currentDiagram = 0;
         if (slideIndex == 23) {
             slideGif.resize(60, 59);
             slideGif.setPosition(68, 0);
@@ -135,7 +136,6 @@ int main() {
     
     sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
-    setCurrentSlide(slideIndex);
     
     Textbox textbox1(sf::Color::Red, 50, false);
     textbox1.setFont(pixilFont);
@@ -145,6 +145,30 @@ int main() {
     Button appendButton("append", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
     appendButton.setPosition({0, 0});
     appendButton.setFont(pixilFont);
+    
+    Button popButton("pop", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+    appendButton.setPosition({0, 0});
+    appendButton.setFont(pixilFont);
+    
+    Button insertButton("insert", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+    appendButton.setPosition({0, 0});
+    appendButton.setFont(pixilFont);
+    
+    Button deleteButton("delete", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+    appendButton.setPosition({0, 0});
+    appendButton.setFont(pixilFont);
+    
+    Button accessButton("access", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+    appendButton.setPosition({0, 0});
+    appendButton.setFont(pixilFont);
+    
+    Button searchButton("search", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+    appendButton.setPosition({0, 0});
+    appendButton.setFont(pixilFont);
+    
+    int currentDiagram = 0;
+    
+    setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfieldBG, textfield, appendButton, popButton, insertButton, deleteButton, ccessButton, removeButton, errorPopup, currentDiagram);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -156,14 +180,18 @@ int main() {
                     textbox1.typed(event);
                     break;
                 case sf::Event::MouseButtonPressed:
-                    if (button1.isHovering(window)){
-                        //image.setTexture(gif2);
-                        std::cout << "You clicked the button" << std::endl;
-                    }
-
-                case sf::Event::MouseButtonReleased:
-                    if (button1.isHovering(window)){
-                        image.setTexture(gif1);
+                    if (currentDiagram == 1) {
+                        
+                    } else if (currentDiagram == 2) {
+                        
+                    } else if (currentDiagram == 3) {
+                        
+                    } else if (currentDiagram == 4) {
+                        
+                    } else if (currentDiagram == 5) {
+                        
+                    } else if (currentDiagram == 6) {
+                        
                     }
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
