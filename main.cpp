@@ -6,9 +6,10 @@
 #include <string>
 #include <thread>
 #include <chrono>
+using Txr = sf::Texture;
 
 // Added this function
-void setSprite(sf::Sprite &sprite, sf::Texture &texture, int x, int y, int width, int height) {
+void setSprite(sf::Sprite &sprite, Txr &texture, int x, int y, int width, int height) {
     sprite.setPosition(x, y);
     // set width and height of sprite here. Try these methods:
     // - sprite.resize(width, height)
@@ -22,7 +23,7 @@ void setSprite(sf::Sprite &sprite, sf::Texture &texture, int x, int y, int width
 void wait(int ms) { this_thread::sleep_for(chrono::milliseconds(ms)); }
 
 // Added this function
-void animateSprite(sf::Sprite &sprite, vector<sf::Texture> &textures, vector<int> &durations, int numTextures) {
+void animateSprite(sf::Sprite &sprite, vector<Txr> &textures, vector<int> &durations, int numTextures) {
     for (int i = 0; i < numTextures; i++) {
         sprite.setTexture(textures[i]);
         wait(durations[i]);
@@ -39,8 +40,8 @@ bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
     return (x < right && x > left && y < down && y > up);
 }
 
-void getSlides(std::vector<sf::Texture> &slides, int numSlides) {
-    sf::Texture tempTexture;
+void getSlides(std::vector<Txr> &slides, int numSlides) {
+    Txr tempTexture;
     for (int i = 1 ; i <= numSlides); i++) {
         tempTexture.loadFromFile("/Users/Joey/CLionProjects/HelloSFML/slides/slide" + std::to_string(i) + ".jpg");
         slides.push_back(tempTexture);
@@ -48,30 +49,58 @@ void getSlides(std::vector<sf::Texture> &slides, int numSlides) {
 }
 
 // Added this function
-void setCurrentSlide(int currentSlide, std::vector<sf::Texture> &slides, sf::Sprite image) {
+void setCurrentSlide(int currentSlide, std::vector<Txr> &slides, sf::Sprite image) {
     image.setTexture(slides[current]);
     // implement a max of one gif per slide
     // check if slide is diagram
 }
 
-int main() {
-    // Load all image textures
-    sf::Texture slideTextures[45];
-    sf::Texture errorTextures[4];
-    sf::Texture boxTexture;
-    sf::Texture buttonTextures[18];
-    sf::Texture textfieldBGTextures[5];
-    // Load all animated textures
-    sf::Texture slide24Gif[3];
-    sf::Texture slide28Gif[29];
-    sf::Texture slide29Gif[27];
-    sf::Texture slide30Gif[82];
-    sf::Texture slide34Gif[17];
-    // slide 41 gif WIP
-    sf::Texture textfieldOpenTextures[25];
-    sf::Texture textfieldCloseTextures[20];
-    sf::Texture textfieldPromptTextures[];
+void loadTextureGroup(string &path, Txr *textures, int numTextures) {
+    Txr temp;
+    for (int i = 0; i < numTextures; i++) {
+        temp.loadFromFile(path + std::to_string(i) + ".jpg");
+        textures[i] = temp;
+    }
+}
 
+void loadTextures(Txr &box, Txr slides, Txr *errors, Txr *buttons, Txr *textfieldBGs, Txr *slide24, Txr *slide28, Txr *slide29, Txr *slide30, Txr *slide34, Txr *open, Txr *close, Txr *prompt) {
+    // enter the path in place of ""
+    box.loadFromFile("");
+    loadTextureGroup("", slides, 45);
+    loadTextureGroup("", errors, 4);
+    loadTextureGroup("", buttons, 18);
+    loadTextureGroup("", textfieldBGs, 5);
+    loadTextureGroup("", slide24, 3);
+    loadTextureGroup("", slide28, 29);
+    loadTextureGroup("", slide29, 27);
+    loadTextureGroup("", slide30, 82);
+    loadTextureGroup("", slide34, 17);
+    loadTextureGroup("", open, 25);
+    loadTextureGroup("", close, 20);
+    loadTextureGroup("", prompt, 56);
+}
+
+int main() {
+    // Not gifs
+    Txr boxImg;
+    Txr slideImg[45];
+    Txr errorImgs[4];
+    Txr buttonImgs[18];
+    Txr textfieldBGImgs[5];
+    // Gifs on slides
+    Txr slide24Gif[3];
+    Txr slide28Gif[29];
+    Txr slide29Gif[27];
+    Txr slide30Gif[82];
+    Txr slide34Gif[17];
+    // Textfield animations
+    Txr textfieldOpenGifs[25];
+    Txr textfieldCloseGifs[20];
+    Txr textfieldPromptGifs[56];
+    // Load all textures
+    loadTextures(boxImg, slideImgs, errorImgs, buttonImgs, textfieldBGImgs, slide24Gif, slide28Gif, slide29Gif, slide30Gif, slide34Gif, slide41Gif, textfieldOpenGifs, textfieldCloseGifs, textfieldPromptGifs);
+
+    
     sf::RenderWindow window;
     // What does this line below do? Document what those numbers mean
     sf::Vector2i centerWindow((sf::VideoMode::getDesktopMode().width / 2) - 1280,
