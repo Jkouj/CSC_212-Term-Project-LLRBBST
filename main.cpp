@@ -8,29 +8,6 @@ using namespace std;
 using Txr = sf::Texture;
 
 
-class Timer {
-public:
-    void startTimer() {
-        m_StartTime = std::chrono::system_clock::now();
-        m_bRunning = true;
-    }
-    void stopTimer() {
-        m_EndTime = std::chrono::system_clock::now();
-        m_bRunning = false;
-    }
-    double elapsedMilliseconds() {
-        std::chrono::time_point<std::chrono::system_clock> endTime;
-        if (m_bRunning) endTime = std::chrono::system_clock::now();
-        else endTime = m_EndTime;
-        return std::chrono::duration_cast<std::chrono::milliseconds>(endTime - m_StartTime).count();
-    }
-private:
-    std::chrono::time_point<std::chrono::system_clock> m_StartTime;
-    std::chrono::time_point<std::chrono::system_clock> m_EndTime;
-    bool m_bRunning = false;
-};
-
-
 class TextureStore {
 public:
     Txr box;
@@ -76,16 +53,17 @@ public:
     }
 private:
     void loadTexture(string &path, Txr &texture) {
-     texture.loadFromFile(path + std::to_string(i) + ".jpg");
+        texture.loadFromFile(path + std::to_string(i) + ".jpg");
     }
     void loadTextureGroup(string &path, Txr *textures, int numTextures) {
-       Txr temp;
-       for (int i = 0; i < numTextures; i++) {
-           loadTexture(path, temp);
-           textures[i] = temp;
-       }
+        Txr temp;
+        for (int i = 0; i < numTextures; i++) {
+            loadTexture(path, temp);
+            textures[i] = temp;
+        }
     }
 };
+
 
 void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield, Txr *animationTxrs, int *animationTimes) {
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
