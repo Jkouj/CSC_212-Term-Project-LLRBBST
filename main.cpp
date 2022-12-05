@@ -19,28 +19,6 @@ void loadTextureGroup(string &path, Txr *textures, int numTextures) {
     }
 }
 
-bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
-    float x = (float)sf::Mouse::getPosition(window).x;
-    float y = (float)sf::Mouse::getPosition(window).y;
-    float up = sprite.getPosition().y;
-    float left = sprite.getPosition().x;
-    float down = spriteX + sprite.getLocalBounds().height;
-    float right = spriteY + sprite.getLocalBounds().width;
-    return (x < right && x > left && y < down && y > up);
-}
-
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
-    int gifSlides[6] = { 6, 9, 12, 15, 31, 43 };
-    for (int i = 0; i < 6; i++) {
-        if (slideIndex == diagramSlides[i]) {
-            buildDiagram();
-            return;
-        }
-    }
-    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
-    // set slideGif texture
-}
-
 class TextureStore {
 public:
     Txr boxTxr;
@@ -71,6 +49,31 @@ public:
         loadTextureGroup("", textfieldCloseGifs, 20);
         loadTextureGroup("", textfieldPromptGifs, 56);
     }
+}
+
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
+    int gifSlides[6] = { 6, 9, 12, 15, 31, 43 };
+    for (int i = 0; i < 6; i++) {
+        if (slideIndex == diagramSlides[i]) {
+            buildDiagram();
+            return;
+        }
+    }
+    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
+    // if slideIndex matches a slide displaying a gif, set slideGif's position, size, textures
+    // need a repeating timer that takes a vector of durations
+    // need to invalidate timer when slide changes
+    // probably only need 1 timer, since I don't want 2 animations playing at once
+}
+
+bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
+    float x = (float)sf::Mouse::getPosition(window).x;
+    float y = (float)sf::Mouse::getPosition(window).y;
+    float up = sprite.getPosition().y;
+    float left = sprite.getPosition().x;
+    float down = spriteX + sprite.getLocalBounds().height;
+    float right = spriteY + sprite.getLocalBounds().width;
+    return (x < right && x > left && y < down && y > up);
 }
 
 int main() {
