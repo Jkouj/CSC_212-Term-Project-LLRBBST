@@ -20,6 +20,7 @@ using namespace std;
 //     timer(time);
 //     return 0;
 // }
+//This is a timer class containing the actual timer which would need to be implemented somewhere in the program.
 class Timer {
     
     public:
@@ -58,6 +59,7 @@ class Timer {
         bool m_bRunning = false;
 };
 
+//In main there's just a bunch of tests currently, these can be deleted safely and replaced with code to actually run through the "gifs".
 int main() {
     Timer timer;
     timer.startTimer();
