@@ -220,19 +220,15 @@ int main() {
                         }
                     } else if (currentDiagram == 2) {
                         if (isHovering(searchButton, window)) {
-                            
+                            // linear search
                         }
                     } else if (currentDiagram == 3) {
                         if (isHovering(searchButton, window)) {
-                            
+                            // binary search
                         }
                     } else if (currentDiagram == 4) {
                         if (isHovering(searchButton, window)) {
-                            
-                        } else if (isHovering(searchButton, window)) {
-                            
-                        } else if (isHovering(searchButton, window)) {
-                            
+                            // binary insert
                         }
                     }
                 case sf::Event::KeyPressed:
