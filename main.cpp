@@ -1,87 +1,90 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Textbox.h"
-#include "Button.h"
+//#include "Textbox.h"
+//#include "Button.h"
 #include <vector>
 #include <string>
-using namespace std;
 using Txr = sf::Texture;
 
+void loadTexture(std::string &path, Txr &texture) {
+    int i = 0;
+    texture.loadFromFile(path + std::to_string(i) + ".jpg");
+    // if loading failed, print error message and exit(0)
+}
+
+void loadTextureGroup(std::string &path, Txr *textures, int numTextures) {
+    Txr temp;
+    for (int i = 0; i < numTextures; i++) {
+        loadTexture(path, temp);
+        textures[i] = temp;
+    }
+}
 
 class TextureStore {
 public:
-    Txr slideBGs[45] = {};
-    Txr slide24[3] = {};
-    Txr slide28[29] = {};
-    Txr slide29[27] = {};
-    Txr slide30[82] = {};
-    Txr slide34[17] = {};
-    int slide24Times[3] = {1000, 1000, 1000};
-    int slide28Times[29] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-    int slide29Times[27] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-    int slide30Times[82] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25,
-                            25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500,
-                            500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-    int slide34Times[17] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-    TextureStore() {
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideBGs, 45);
-        loadTextureGroup("", slide24, 3);
-        loadTextureGroup("", slide28, 29);
-        loadTextureGroup("", slide29, 27);
-        loadTextureGroup("", slide30, 82);
-        loadTextureGroup("", slide34, 17);
-    }
-private:
-    static void loadTexture(string &path, Txr &texture) {
-        texture.loadFromFile(path + ".jpg");
-    }
-    static void loadTextureGroup(string &path, Txr *textures, int numTextures) {
-        Txr temp;
-        for (int i = 0; i < numTextures; i++) {
-            loadTexture(path, temp);
-            textures[i] = temp;
-        }
+    Txr boxTxr;
+    Txr slideTxrs[45];
+    Txr errorTxrs[4];
+    Txr buttonTxrs[18];
+    Txr textfieldBGTxrs[5];
+    Txr diagram1[57];
+    Txr diagram2[55];
+    Txr diagram3[22];
+    Txr diagramInsert[27];
+    Txr diagramDeletion[82];
+    Txr diagramRotation[17];
+    Txr diagramSearch[29];
+    Txr textfieldOpenGifs[20];
+    Txr textfieldCloseGifs[15];
+    Txr textfieldPromptGifs[56];
+    void load() {
+        loadTexture("", boxTxr);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/errors", errorTxrs, 4);//
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/buttons", buttonTxrs, 18);//
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldBG", textfieldBGTxrs, 5);//
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram1", diagram1, 57);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram2", diagram2, 55);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram3", diagram3, 22);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramInsert", diagramInsert, 27);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramDeletion", diagramDeletion, 82);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramRotation", diagramRotation, 17);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramSearch", diagramSearch, 29);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldOpen", textfieldOpenGifs, 20);//20
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldClose", textfieldCloseGifs, 15);//15
+        loadTextureGroup("", textfieldPromptGifs, 56);
     }
 };
 
-
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield, Txr *animationTxrs, int *animationTimes) {
-    slideBG.setTexture(textureStore.slideBGs[slideIndex]);
-    if (slideIndex == 23) {
-        slideGif.resize(60, 59);
-        slideGif.setPosition(68, 0);
-        animate(slideGif, textureStore.slide24, textureStore.slide24Times);
-        animationTxrs = textureStore.slide24;
-        animationTimes = textureStore.slide24Times;
-    } else if (slideIndex == 27) {
-        slideGif.resize(20, 25);
-        slideGif.setPosition(108, 0);
-        animationTxrs = textureStore.slide28;
-        animationTimes = textureStore.slide28Times;
-    } else if (slideIndex == 28) {
-        slideGif.resize(20, 35);
-        slideGif.setPosition(108, 0);
-        animationTxrs = textureStore.slide29;
-        animationTimes = textureStore.slide29Times;
-    } else if (slideIndex == 29) {
-        slideGif.resize(20, 35);
-        slideGif.setPosition(108, 0);
-        animationTxrs = textureStore.slide30;
-        animationTimes = textureStore.slide30Times;
-    } else if (slideIndex == 33) {
-        slideGif.resize(25, 35);
-        slideGif.setPosition(103, 0);
-        animationTxrs = textureStore.slide34;
-        animationTimes = textureStore.slide34Times;
-    } else {
-        animationTxrs.clear();
-        animationTimes.clear();
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
+    int gifSlides[6] = { 6, 9, 12, 15, 31, 43 };
+    for (int i = 0; i < 6; i++) {
+//        if (slideIndex == diagramSlides[i]) {
+//            buildDiagram();
+//            return;
+//        }
     }
+    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
+    // if slideIndex matches a slide displaying a gif, set slideGif's position, size, textures
+    // need a repeating timer that takes a vector of durations
+    // need to invalidate timer when slide changes
+    // probably only need 1 timer, since I don't want 2 animations playing at once
+}
+
+bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
+    float x = (float)sf::Mouse::getPosition(window).x;
+    float y = (float)sf::Mouse::getPosition(window).y;
+    float up = sprite.getPosition().y;
+    float left = sprite.getPosition().x;
+    float down = spriteX + sprite.getLocalBounds().height;
+    float right = spriteY + sprite.getLocalBounds().width;
+    return (x < right && x > left && y < down && y > up);
 }
 
 int main() {
     // Load textures
     TextureStore textureStore = TextureStore();
+    textureStore.load();
     // Load pixil font
     sf::Font pixilFont;
     pixilFont.loadFromFile("/Users/Joey/CLionProjects/HelloSFML/pixilfont.ttf");
@@ -92,21 +95,18 @@ int main() {
     window.setPosition(centerWindow);
     window.setKeyRepeatEnabled(true);
 
-    sf::Sprite slideBG;
-    sf::Sprite slideGif;
+    sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
+    setCurrentSlide(slideIndex);
 
-    Textbox textfield(sf::Color::Red, 50, false);
-    textfield.setFont(pixilFont);
-    textfield.setPosition({100, 100});
+//    Textbox textbox1(sf::Color::Red, 50, false);
+//    textbox1.setFont(pixilFont);
+//    textbox1.setPosition({100, 100});
+//    textbox1.setLimit(true, 10);
 
-    Txr *animationTxrs;
-    int *animationTimes;
-
-    setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
-    if (!animationTxrs.empty()) {
-        slideGif.setTexture(animationTxrs[0]);
-    }
+//     Button button1(" 4 ", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
+//     button1.setPosition({0, 0});
+//     button1.setFont(pixilFont);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -114,33 +114,50 @@ int main() {
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
-                case sf::Event::TextEntered:
-                    textfield.typed(event);
-                case sf::Event::MouseButtonPressed:
+//                case sf::Event::TextEntered:
+//                    textbox1.typed(event);
+                    break;
+//                case sf::Event::MouseMoved:
+//                    if (button1.isHovering(window)) {
+//                        //image.setTexture(gif2);
+//                    } else {
+//                        //image.setTexture(gif1);
+//                    }
+//                    break;
 
+//                case sf::Event::MouseButtonPressed:
+//                    if (button1.isHovering(window)){
+//                        //image.setTexture(gif2);
+//                        std::cout << "You clicked the button" << std::endl;
+//                    }
+
+//                case sf::Event::MouseButtonReleased:
+//                        if (button1.isHovering(window)){
+//                            image.setTexture(gif1);
+//                        }
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                        if (slideIndex != 45) {
-                            slideIndex++;
-                            setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
+                        if (current != 45) {
+                            current++;
+                            setCurrentSlide(currentSlide, slides, image);
                         }
                     }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
-                        if (slideIndex != 0) {
-                            slideIndex--;
-                            setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+                             sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+                             sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
+                        if (current != 0) {
+                            current--;
+                            setCurrentSlide(currentSlide);
                         }
                     }
             }
         }
         window.clear(sf::Color(0, 0, 0, 255));
-        window.draw(slideBG);
-        window.draw(slideGif);
-//         textfield.drawTo(window);
+        window.draw(image);
+        //textbox1.drawTo(window);
+        //button1.drawTo(window);
         window.display();
     }
-    cout << "Window was closed" << endl;
-    exit(0);
 }
