@@ -68,9 +68,21 @@ void animate(sf::Sprite sprite, Txr *textures, int *durations) {
     
 }
 
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, sf::Sprite &textfieldBG, Textbox &textfield, sf::Sprite &appendButton, sf::Sprite &popButton, sf::Sprite &insertButton, sf::Sprite &deleteButton, sf::Sprite &accessButton, sf::Sprite &removeButton, sf::Sprite &errorPopup) {
     // invalidate animation timer
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
+    if (slideIndex == 6) {
+        // diagram 1
+    } else if (slideIndex == 9) {
+        // diagram 2
+    } else if (slideIndex == 12) {
+        // diagram 3
+    } else if (slideIndex == 15) {
+        // diagram 4
+    } else if (slideIndex == 31) {
+        // diagram 5
+    } else if (slideIndex == 43) {
+        // diagram 6
     } else if (slideIndex == 23) {
         slideGif.resize();
         slideGif.setPosition();
