@@ -30,19 +30,6 @@ private:
     bool m_bRunning = false;
 };
 
-void loadTexture(string &path, Txr &texture) {
-    texture.loadFromFile(path + std::to_string(i) + ".jpg");
-}
-
-
-void loadTextureGroup(string &path, Txr *textures, int numTextures) {
-    Txr temp;
-    for (int i = 0; i < numTextures; i++) {
-        loadTexture(path, temp);
-        textures[i] = temp;
-    }
-}
-
 
 class TextureStore {
 public:
@@ -86,6 +73,17 @@ public:
         loadTextureGroup("", textfieldOpenGifs, 25);
         loadTextureGroup("", textfieldCloseGifs, 20);
         loadTextureGroup("", textfieldPromptGifs, 56);
+    }
+private:
+    void loadTexture(string &path, Txr &texture) {
+     texture.loadFromFile(path + std::to_string(i) + ".jpg");
+    }
+    void loadTextureGroup(string &path, Txr *textures, int numTextures) {
+       Txr temp;
+       for (int i = 0; i < numTextures; i++) {
+           loadTexture(path, temp);
+           textures[i] = temp;
+       }
     }
 };
 
