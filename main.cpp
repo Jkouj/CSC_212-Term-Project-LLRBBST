@@ -94,7 +94,7 @@ void animate(sf::Sprite sprite, Txr *textures, int *durations) {
     
 }
 
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, sf::Sprite &textfieldBG, Textbox &textfield, sf::Sprite &appendButton, sf::Sprite &popButton, sf::Sprite &insertButton, sf::Sprite &deleteButton, sf::Sprite &accessButton, sf::Sprite &removeButton, sf::Sprite &errorPopup, int &currentDiagram) {
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield) {
     // invalidate animation timer
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
     if (slideIndex == 6) {
@@ -132,7 +132,7 @@ void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, 
             slideGif.setPosition(103, 0);
             animate(slideGif, textureStore.slide34, textureStore.slide34Times);
         } else {
-            // disable slideGif
+            // make slideGif invisible
         }
     }
 }
@@ -168,40 +168,13 @@ int main() {
     textbox1.setPosition({100, 100});
     textbox1.setLimit(true, 10);
 
-    Button appendButton("append", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.resize(25, 13);
-    appendButton.setPosition({38, 33});
-    appendButton.setFont(pixilFont);
-    
-    Button popButton("pop", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    popButton.resize(25, 13);
-    popButton.setPosition({65, 33});
-    popButton.setFont(pixilFont);
-    
-    Button insertButton("insert", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    insertButton.resize(25, 13);
-    insertButton.setPosition({38, 47});
-    insertButton.setFont(pixilFont);
-    
-    Button deleteButton("delete", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    deleteButton.resize(25, 13);
-    deleteButton.setPosition({65, 47});
-    deleteButton.setFont(pixilFont);
-    
-    Button accessButton("access", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    accessButton.resize(25, 13);
-    accessButton.setPosition({38, 59});
-    accessButton.setFont(pixilFont);
-    
-    Button searchButton("search", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    searchButton.resize(25, 13);
-    searchButton.setPosition({65, 59});
-    searchButton.setFont(pixilFont);
-    
     int currentDiagram = 0;
     
     setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfieldBG, textfield, appendButton, popButton, insertButton, deleteButton, ccessButton, removeButton, errorPopup, currentDiagram);
-
+    
+    List list = List();
+    OrderedList orderedList = OrderedList();
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -212,31 +185,7 @@ int main() {
                     textbox1.typed(event);
                     break;
                 case sf::Event::MouseButtonPressed:
-                    if (currentDiagram == 1) {
-                        if (isHovering(appendButton, window)) {
-                            // append
-                        } else if (isHovering(popButton, window)) {
-                            // pop
-                        } else if (isHovering(insertButton, window)) {
-                            // insert
-                        } else if (isHovering(deleteButton, window)) {
-                            // delete
-                        } else if (isHovering(accessButton, window)) {
-                            // access
-                        }
-                    } else if (currentDiagram == 2) {
-                        if (isHovering(searchButton, window)) {
-                            // linear search
-                        }
-                    } else if (currentDiagram == 3) {
-                        if (isHovering(searchButton, window)) {
-                            // binary search
-                        }
-                    } else if (currentDiagram == 4) {
-                        if (isHovering(searchButton, window)) {
-                            // binary insert
-                        }
-                    }
+                    
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
