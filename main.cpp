@@ -7,6 +7,7 @@
 #include <thread>
 #include <chrono>
 
+// These definitions aren't ever used
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 
@@ -55,6 +56,8 @@ void getSlides(std::vector<sf::Texture> &slides, int numSlides) {
 // Added this function
 void setCurrentSlide(int currentSlide, std::vector<sf::Texture> &slides, sf::Sprite image) {
     image.setTexture(slides[current]);
+    // implement a max of one gif per slide
+    // check if slide is diagram
 }
 
 int main() {
