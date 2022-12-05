@@ -97,43 +97,28 @@ void animate(sf::Sprite sprite, Txr *textures, int *durations) {
 void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield) {
     // invalidate animation timer
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
-    if (slideIndex == 6) {
-        currentDiagram = 1;
-    } else if (slideIndex == 9) {
-        currentDiagram = 2;
-    } else if (slideIndex == 12) {
-        currentDiagram = 3;
-    } else if (slideIndex == 15) {
-        currentDiagram = 4;
-    } else if (slideIndex == 31) {
-        currentDiagram = 5;
-    } else if (slideIndex == 43) {
-        currentDiagram = 6;
+    if (slideIndex == 23) {
+        slideGif.resize(60, 59);
+        slideGif.setPosition(68, 0);
+        animate(slideGif, textureStore.slide24, textureStore.slide24Times);
+    } else if (slideIndex == 27) {
+        slideGif.resize(20, 25);
+        slideGif.setPosition(108, 0);
+        animate(slideGif, textureStore.slide28, textureStore.slide28Times);
+    } else if (slideIndex == 28) {
+        slideGif.resize(20, 35);
+        slideGif.setPosition(108, 0);
+        animate(slideGif, textureStore.slide29, textureStore.slide29Times);
+    } else if (slideIndex == 29) {
+        slideGif.resize(20, 35);
+        slideGif.setPosition(108, 0);
+        animate(slideGif, textureStore.slide30, textureStore.slide30Times);
+    } else if (slideIndex == 33) {
+        slideGif.resize(25, 35);
+        slideGif.setPosition(103, 0);
+        animate(slideGif, textureStore.slide34, textureStore.slide34Times);
     } else {
-        currentDiagram = 0;
-        if (slideIndex == 23) {
-            slideGif.resize(60, 59);
-            slideGif.setPosition(68, 0);
-            animate(slideGif, textureStore.slide24, textureStore.slide24Times);
-        } else if (slideIndex == 27) {
-            slideGif.resize(20, 25);
-            slideGif.setPosition(108, 0);
-            animate(slideGif, textureStore.slide28, textureStore.slide28Times);
-        } else if (slideIndex == 28) {
-            slideGif.resize(20, 35);
-            slideGif.setPosition(108, 0);
-            animate(slideGif, textureStore.slide29, textureStore.slide29Times);
-        } else if (slideIndex == 29) {
-            slideGif.resize(20, 35);
-            slideGif.setPosition(108, 0);
-            animate(slideGif, textureStore.slide30, textureStore.slide30Times);
-        } else if (slideIndex == 33) {
-            slideGif.resize(25, 35);
-            slideGif.setPosition(103, 0);
-            animate(slideGif, textureStore.slide34, textureStore.slide34Times);
-        } else {
-            // make slideGif invisible
-        }
+        // make slideGif invisible
     }
 }
 
