@@ -167,20 +167,19 @@ int main() {
                     window.close();
                 case sf::Event::TextEntered:
                     textbox1.typed(event);
-                    break;
                 case sf::Event::MouseButtonPressed:
                     
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                        if (current != 45) {
+                        if (slideIndex != 45) {
                             slideIndex++;
                             setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
                         }
                     }
                     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
-                        if (current != 0) {
+                        if (slideIndex != 0) {
                             slideIndex--;
                             setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
                         }
