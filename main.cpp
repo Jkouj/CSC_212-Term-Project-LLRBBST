@@ -169,28 +169,34 @@ int main() {
     textbox1.setLimit(true, 10);
 
     Button appendButton("append", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.setPosition({0, 0});
+    appendButton.resize(25, 13);
+    appendButton.setPosition({38, 33});
     appendButton.setFont(pixilFont);
     
     Button popButton("pop", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.setPosition({0, 0});
-    appendButton.setFont(pixilFont);
+    popButton.resize(25, 13);
+    popButton.setPosition({65, 33});
+    popButton.setFont(pixilFont);
     
     Button insertButton("insert", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.setPosition({0, 0});
-    appendButton.setFont(pixilFont);
+    insertButton.resize(25, 13);
+    insertButton.setPosition({38, 47});
+    insertButton.setFont(pixilFont);
     
     Button deleteButton("delete", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.setPosition({0, 0});
-    appendButton.setFont(pixilFont);
+    deleteButton.resize(25, 13);
+    deleteButton.setPosition({65, 47});
+    deleteButton.setFont(pixilFont);
     
     Button accessButton("access", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.setPosition({0, 0});
-    appendButton.setFont(pixilFont);
+    accessButton.resize(25, 13);
+    accessButton.setPosition({38, 59});
+    accessButton.setFont(pixilFont);
     
     Button searchButton("search", {80, 80}, 20, sf::Color::Black, sf::Color::Black);
-    appendButton.setPosition({0, 0});
-    appendButton.setFont(pixilFont);
+    searchButton.resize(25, 13);
+    searchButton.setPosition({65, 59});
+    searchButton.setFont(pixilFont);
     
     int currentDiagram = 0;
     
