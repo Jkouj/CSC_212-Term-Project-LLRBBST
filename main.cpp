@@ -26,6 +26,7 @@ void wait(int ms) {
     this_thread::sleep_for(chrono::milliseconds(ms));
 }
 
+// Added this function
 void animateSprite(sf::Sprite &sprite, vector<sf::Texture> &textures, vector<int> &durations, int numTextures) {
     for (int i = 0; i < numTextures; i++) {
         sprite.setTexture(textures[i]);
