@@ -19,23 +19,6 @@ void loadTextureGroup(string &path, Txr *textures, int numTextures) {
     }
 }
 
-void loadTextures(Txr &box, Txr slides, Txr *errors, Txr *buttons, Txr *textfieldBGs, Txr *slide24, Txr *slide28, Txr *slide29, Txr *slide30, Txr *slide34, Txr *open, Txr *close, Txr *prompt) {
-    // enter path in place of ""
-    loadTexture(path, box);
-    loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slides, 45);
-    loadTextureGroup("", errors, 4);
-    loadTextureGroup("", buttons, 18);
-    loadTextureGroup("", textfieldBGs, 5);
-    loadTextureGroup("", slide24, 3);
-    loadTextureGroup("", slide28, 29);
-    loadTextureGroup("", slide29, 27);
-    loadTextureGroup("", slide30, 82);
-    loadTextureGroup("", slide34, 17);
-    loadTextureGroup("", open, 25);
-    loadTextureGroup("", close, 20);
-    loadTextureGroup("", prompt, 56);
-}
-
 bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
     float x = (float)sf::Mouse::getPosition(window).x;
     float y = (float)sf::Mouse::getPosition(window).y;
@@ -46,16 +29,25 @@ bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
     return (x < right && x > left && y < down && y > up);
 }
 
-void setCurrentSlide(int slideIndex) {
-    
+void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
+    int gifSlides[6] = { 6, 9, 12, 15, 31, 43 };
+    for (int i = 0; i < 6; i++) {
+        if (slideIndex == diagramSlides[i]) {
+            buildDiagram();
+            return;
+        }
+    }
+    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
+    // set slideGif texture
 }
 
-int main() {
-    Txr boxImg;
-    Txr slideImg[45];
-    Txr errorImgs[4];
-    Txr buttonImgs[18];
-    Txr textfieldBGImgs[5];
+class TextureStore {
+public:
+    Txr boxTxr;
+    Txr slideTxrs[45];
+    Txr errorTxrs[4];
+    Txr buttonTxrs[18];
+    Txr textfieldBGTxrs[5];
     Txr slide24Gif[3];
     Txr slide28Gif[29];
     Txr slide29Gif[27];
@@ -64,8 +56,27 @@ int main() {
     Txr textfieldOpenGifs[25];
     Txr textfieldCloseGifs[20];
     Txr textfieldPromptGifs[56];
-    // Load all textures
-    loadTextures(boxImg, slideImgs, errorImgs, buttonImgs, textfieldBGImgs, slide24Gif, slide28Gif, slide29Gif, slide30Gif, slide34Gif, slide41Gif, textfieldOpenGifs, textfieldCloseGifs, textfieldPromptGifs);
+    void load() {
+        loadTexture("", boxTxr);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
+        loadTextureGroup("", errorTxrs, 4);
+        loadTextureGroup("", buttonTxrs, 18);
+        loadTextureGroup("", textfieldBGTxrs, 5);
+        loadTextureGroup("", slide24Gif, 3);
+        loadTextureGroup("", slide28Gif, 29);
+        loadTextureGroup("", slide29Gif, 27);
+        loadTextureGroup("", slide30Gif, 82);
+        loadTextureGroup("", slide34Gif, 17);
+        loadTextureGroup("", textfieldOpenGifs, 25);
+        loadTextureGroup("", textfieldCloseGifs, 20);
+        loadTextureGroup("", textfieldPromptGifs, 56);
+    }
+}
+
+int main() {
+    // Load textures
+    TextureStore textureStore = TextureStore();
+    textureStore.load();
     // Load pixil font
     sf::Font pixilFont;
     pixilFont.loadFromFile("/Users/Joey/CLionProjects/HelloSFML/pixilfont.ttf");
