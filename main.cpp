@@ -181,7 +181,17 @@ int main() {
                     break;
                 case sf::Event::MouseButtonPressed:
                     if (currentDiagram == 1) {
-                        
+                        if (isHovering(appendButton, window)) {
+                            // append
+                        } else if (isHovering(popButton, window)) {
+                            // pop
+                        } else if (isHovering(insertButton, window)) {
+                            // insert
+                        } else if (isHovering(deleteButton, window)) {
+                            // delete
+                        } else if (isHovering(accessButton, window)) {
+                            // access
+                        }
                     } else if (currentDiagram == 2) {
                         
                     } else if (currentDiagram == 3) {
