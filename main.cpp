@@ -150,27 +150,19 @@ int main() {
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
-               case sf::Event::TextEntered:
-                   textbox1.typed(event);
+                case sf::Event::TextEntered:
+                    textbox1.typed(event);
                     break;
-               case sf::Event::MouseMoved:
-                   if (button1.isHovering(window)) {
-                       //image.setTexture(gif2);
-                   } else {
-                       //image.setTexture(gif1);
-                   }
-                   break;
+                case sf::Event::MouseButtonPressed:
+                    if (button1.isHovering(window)){
+                        //image.setTexture(gif2);
+                        std::cout << "You clicked the button" << std::endl;
+                    }
 
-               case sf::Event::MouseButtonPressed:
-                   if (button1.isHovering(window)){
-                       //image.setTexture(gif2);
-                       std::cout << "You clicked the button" << std::endl;
-                   }
-
-               case sf::Event::MouseButtonReleased:
-                       if (button1.isHovering(window)){
-                           image.setTexture(gif1);
-                       }
+                case sf::Event::MouseButtonReleased:
+                    if (button1.isHovering(window)){
+                        image.setTexture(gif1);
+                    }
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
@@ -180,9 +172,7 @@ int main() {
                             setCurrentSlide(currentSlide, slides, image);
                         }
                     }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
-                            sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
-                            sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
                         if (current != 0) {
                             current--;
                             setCurrentSlide(currentSlide);
