@@ -10,46 +10,29 @@ using Txr = sf::Texture;
 
 class TextureStore {
 public:
-    Txr box;
     Txr slides[45];
-    Txr errors[4];
-    Txr buttons[18];
-    Txr textfieldBGs[5];
     Txr slide24[3];
     Txr slide28[29];
     Txr slide29[27];
     Txr slide30[82];
     Txr slide34[17];
-    Txr textfieldOpen[25];
-    Txr textfieldClose[20];
-    Txr textfieldPrompt[56];
     int slide24Times[3];
     int slide28Times[29];
     int slide29Times[27];
     int slide30Times[82];
     int slide34Times[17];
-    int textfieldOpenTimes[25];
-    int textfieldCloseTimes[20];
-    int textfieldPromptTimes[56];
     TextureStore() {
         slide24Times = { 1000, 1000, 1000 };
         slide28Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
         slide29Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
         slide30Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
         slide34Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-        loadTexture("", boxTxr);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
-        loadTextureGroup("", errorTxrs, 4);
-        loadTextureGroup("", buttonTxrs, 18);
-        loadTextureGroup("", textfieldBGTxrs, 5);
         loadTextureGroup("", slide24Gif, 3);
         loadTextureGroup("", slide28Gif, 29);
         loadTextureGroup("", slide29Gif, 27);
         loadTextureGroup("", slide30Gif, 82);
         loadTextureGroup("", slide34Gif, 17);
-        loadTextureGroup("", textfieldOpenGifs, 25);
-        loadTextureGroup("", textfieldCloseGifs, 20);
-        loadTextureGroup("", textfieldPromptGifs, 56);
     }
 private:
     void loadTexture(string &path, Txr &texture) {
