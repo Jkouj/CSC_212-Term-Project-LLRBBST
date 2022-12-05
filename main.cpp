@@ -4,6 +4,7 @@
 #include "Button.h"
 #include <vector>
 #include <string>
+using namespace std;
 using Txr = sf::Texture;
 
 void loadTexture(string &path, Txr &texture) {
@@ -20,19 +21,34 @@ void loadTextureGroup(string &path, Txr *textures, int numTextures) {
 
 class TextureStore {
 public:
-    Txr boxTxr;
-    Txr slideTxrs[45];
-    Txr errorTxrs[4];
-    Txr buttonTxrs[18];
-    Txr textfieldBGTxrs[5];
-    Txr slide24Gif[3];
-    Txr slide28Gif[29];
-    Txr slide29Gif[27];
-    Txr slide30Gif[82];
-    Txr slide34Gif[17];
-    Txr textfieldOpenGifs[25];
-    Txr textfieldCloseGifs[20];
-    Txr textfieldPromptGifs[56];
+    Txr box;
+    Txr slides[45];
+    Txr errors[4];
+    Txr buttons[18];
+    Txr textfieldBGs[5];
+    Txr slide24[3];
+    Txr slide28[29];
+    Txr slide29[27];
+    Txr slide30[82];
+    Txr slide34[17];
+    Txr textfieldOpen[25];
+    Txr textfieldClose[20];
+    Txr textfieldPrompt[56];
+    int slide24Times[3];
+    int slide28Times[29];
+    int slide29Times[27];
+    int slide30Times[82];
+    int slide34Times[17];
+    int textfieldOpenTimes[25];
+    int textfieldCloseTimes[20];
+    int textfieldPromptTimes[56];
+    TextureStore() {
+        slide24Times = { 1000, 1000, 1000 };
+        slide28Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+        slide29Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+        slide30Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+        slide34Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+    }
     void load() {
         loadTexture("", boxTxr);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
@@ -48,21 +64,54 @@ public:
         loadTextureGroup("", textfieldCloseGifs, 20);
         loadTextureGroup("", textfieldPromptGifs, 56);
     }
+};
+
+void animate(sf::Sprite sprite, Txr *textures, int *durations) {
+    
 }
 
 void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
+    // invalidate animation timer
+    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
+    if (slideIndex == 24) {
+        slideGif.setPosition();
+        slideGif.resize();
+        slideGif.setTexture();
+        // animate slideGif
+    } else if (slideIndex == 24) {
+        slideGif.setPosition();
+        slideGif.resize();
+        slideGif.setTexture();
+        // animate slideGif
+    } else if (slideIndex == 28) {
+        slideGif.setPosition();
+        slideGif.resize();
+        slideGif.setTexture();
+        // animate slideGif
+    } else if (slideIndex == 29) {
+        slideGif.setPosition();
+        slideGif.resize();
+        slideGif.setTexture();
+        // animate slideGif
+    } else if (slideIndex == 30) {
+        slideGif.setPosition();
+        slideGif.resize();
+        slideGif.setTexture();
+        // animate slideGif
+    } else if (slideIndex == 34) {
+        slideGif.setPosition();
+        slideGif.resize();
+        slideGif.setTexture();
+        // animate slideGif
+    } else {
+        
+    }
     int gifSlides[6] = { 6, 9, 12, 15, 31, 43 };
     for (int i = 0; i < 6; i++) {
-        if (slideIndex == diagramSlides[i]) {
-            buildDiagram();
-            return;
+        if (slideIndex == gifSlides[i]) {
+            // animate gif
         }
     }
-    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
-    // if slideIndex matches a slide displaying a gif, set slideGif's position, size, textures
-    // need a repeating timer that takes a vector of durations
-    // need to invalidate timer when slide changes
-    // probably only need 1 timer, since I don't want 2 animations playing at once
 }
 
 bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
@@ -70,8 +119,8 @@ bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
     float y = (float)sf::Mouse::getPosition(window).y;
     float up = sprite.getPosition().y;
     float left = sprite.getPosition().x;
-    float down = spriteX + sprite.getLocalBounds().height;
-    float right = spriteY + sprite.getLocalBounds().width;
+    float down = up + sprite.getLocalBounds().height;
+    float right = left + sprite.getLocalBounds().width;
     return (x < right && x > left && y < down && y > up);
 }
 
