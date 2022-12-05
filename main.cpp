@@ -8,7 +8,6 @@ using Txr = sf::Texture;
 
 void loadTexture(string &path, Txr &texture) {
     texture.loadFromFile(path + std::to_string(i) + ".jpg");
-    // if loading failed, print error message and exit(0)
 }
 
 void loadTextureGroup(string &path, Txr *textures, int numTextures) {
@@ -155,4 +154,6 @@ int main() {
         //button1.drawTo(window);
         window.display();
     }
+    cout << "Window was closed" << endl;
+    exit(0);
 }
