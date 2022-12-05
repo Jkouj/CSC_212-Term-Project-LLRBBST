@@ -10,35 +10,30 @@ using Txr = sf::Texture;
 
 class TextureStore {
 public:
-    Txr slides[45];
-    Txr slide24[3];
-    Txr slide28[29];
-    Txr slide29[27];
-    Txr slide30[82];
-    Txr slide34[17];
-    int slide24Times[3];
-    int slide28Times[29];
-    int slide29Times[27];
-    int slide30Times[82];
-    int slide34Times[17];
+    Txr slideBGs[45] = {};
+    Txr slide24[3] = {};
+    Txr slide28[29] = {};
+    Txr slide29[27] = {};
+    Txr slide30[82] = {};
+    Txr slide34[17] = {};
+    int slide24Times[3] = {1000, 1000, 1000};
+    int slide28Times[29] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+    int slide29Times[27] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+    int slide30Times[82] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
+    int slide34Times[17] = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
     TextureStore() {
-        slide24Times = { 1000, 1000, 1000 };
-        slide28Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-        slide29Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-        slide30Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-        slide34Times = { 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 25, 25, 25, 25, 500, 100 };
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
-        loadTextureGroup("", slide24Gif, 3);
-        loadTextureGroup("", slide28Gif, 29);
-        loadTextureGroup("", slide29Gif, 27);
-        loadTextureGroup("", slide30Gif, 82);
-        loadTextureGroup("", slide34Gif, 17);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideBGs, 45);
+        loadTextureGroup("", slide24, 3);
+        loadTextureGroup("", slide28, 29);
+        loadTextureGroup("", slide29, 27);
+        loadTextureGroup("", slide30, 82);
+        loadTextureGroup("", slide34, 17);
     }
 private:
-    void loadTexture(string &path, Txr &texture) {
-        texture.loadFromFile(path + std::to_string(i) + ".jpg");
+    static void loadTexture(string &path, Txr &texture) {
+        texture.loadFromFile(path + ".jpg");
     }
-    void loadTextureGroup(string &path, Txr *textures, int numTextures) {
+    static void loadTextureGroup(string &path, Txr *textures, int numTextures) {
         Txr temp;
         for (int i = 0; i < numTextures; i++) {
             loadTexture(path, temp);
@@ -49,7 +44,7 @@ private:
 
 
 void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore, Textbox &textfield, Txr *animationTxrs, int *animationTimes) {
-    slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
+    slideBG.setTexture(textureStore.slideBGs[slideIndex]);
     if (slideIndex == 23) {
         slideGif.resize(60, 59);
         slideGif.setPosition(68, 0);
@@ -82,16 +77,6 @@ void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, 
     }
 }
 
-bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
-    float x = (float)sf::Mouse::getPosition(window).x;
-    float y = (float)sf::Mouse::getPosition(window).y;
-    float up = sprite.getPosition().y;
-    float left = sprite.getPosition().x;
-    float down = up + sprite.getLocalBounds().height;
-    float right = left + sprite.getLocalBounds().width;
-    return (x < right && x > left && y < down && y > up);
-}
-
 int main() {
     // Load textures
     TextureStore textureStore = TextureStore();
@@ -104,22 +89,23 @@ int main() {
     window.create(sf::VideoMode(1280, 720), "SFML Project");
     window.setPosition(centerWindow);
     window.setKeyRepeatEnabled(true);
-    
-    sf::Sprite slideBG, slideGif;
+
+    sf::Sprite slideBG;
+    sf::Sprite slideGif;
     int slideIndex = 0;
-    
+
     Textbox textfield(sf::Color::Red, 50, false);
-    textbox1.setFont(pixilFont);
-    textbox1.setPosition({100, 100});
-            
+    textfield.setFont(pixilFont);
+    textfield.setPosition({100, 100});
+
     Txr *animationTxrs;
     int *animationTimes;
-    
+
     setCurrentSlide(slideBG, slideGif, slideIndex, textureStore, textfield, animationTxrs, animationTimes);
     if (!animationTxrs.empty()) {
         slideGif.setTexture(animationTxrs[0]);
     }
-    
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -127,9 +113,9 @@ int main() {
                 case sf::Event::Closed:
                     window.close();
                 case sf::Event::TextEntered:
-                    textbox1.typed(event);
+                    textfield.typed(event);
                 case sf::Event::MouseButtonPressed:
-                    
+
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
@@ -150,7 +136,7 @@ int main() {
         window.clear(sf::Color(0, 0, 0, 255));
         window.draw(slideBG);
         window.draw(slideGif);
-        textfield.drawTo(window);
+//         textfield.drawTo(window);
         window.display();
     }
     cout << "Window was closed" << endl;
