@@ -7,9 +7,33 @@
 using namespace std;
 using Txr = sf::Texture;
 
+
+class Timer {
+public:
+    void startTimer() {
+        m_StartTime = std::chrono::system_clock::now();
+        m_bRunning = true;
+    }
+    void stopTimer() {
+        m_EndTime = std::chrono::system_clock::now();
+        m_bRunning = false;
+    }
+    double elapsedMilliseconds() {
+        std::chrono::time_point<std::chrono::system_clock> endTime;
+        if (m_bRunning) endTime = std::chrono::system_clock::now();
+        else endTime = m_EndTime;
+        return std::chrono::duration_cast<std::chrono::milliseconds>(endTime - m_StartTime).count();
+    }
+private:
+    std::chrono::time_point<std::chrono::system_clock> m_StartTime;
+    std::chrono::time_point<std::chrono::system_clock> m_EndTime;
+    bool m_bRunning = false;
+};
+
 void loadTexture(string &path, Txr &texture) {
     texture.loadFromFile(path + std::to_string(i) + ".jpg");
 }
+
 
 void loadTextureGroup(string &path, Txr *textures, int numTextures) {
     Txr temp;
@@ -18,6 +42,7 @@ void loadTextureGroup(string &path, Txr *textures, int numTextures) {
         textures[i] = temp;
     }
 }
+
 
 class TextureStore {
 public:
@@ -63,6 +88,7 @@ public:
         loadTextureGroup("", textfieldPromptGifs, 56);
     }
 };
+
 
 void animate(sf::Sprite sprite, Txr *textures, int *durations) {
     
@@ -193,15 +219,21 @@ int main() {
                             // access
                         }
                     } else if (currentDiagram == 2) {
-                        
+                        if (isHovering(searchButton, window)) {
+                            
+                        }
                     } else if (currentDiagram == 3) {
-                        
+                        if (isHovering(searchButton, window)) {
+                            
+                        }
                     } else if (currentDiagram == 4) {
-                        
-                    } else if (currentDiagram == 5) {
-                        
-                    } else if (currentDiagram == 6) {
-                        
+                        if (isHovering(searchButton, window)) {
+                            
+                        } else if (isHovering(searchButton, window)) {
+                            
+                        } else if (isHovering(searchButton, window)) {
+                            
+                        }
                     }
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
