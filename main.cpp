@@ -23,9 +23,7 @@ void setSprite(sf::Sprite &sprite, sf::Texture &texture, int x, int y, int width
 }
 
 // Added this function
-void wait(int ms) {
-    this_thread::sleep_for(chrono::milliseconds(ms));
-}
+void wait(int ms) { this_thread::sleep_for(chrono::milliseconds(ms)); }
 
 // Added this function
 void animateSprite(sf::Sprite &sprite, vector<sf::Texture> &textures, vector<int> &durations, int numTextures) {
@@ -35,7 +33,7 @@ void animateSprite(sf::Sprite &sprite, vector<sf::Texture> &textures, vector<int
     }
 }
 
-bool isOver(sf::Sprite &sprite, sf::RenderWindow &window) {
+bool isHovering(sf::Sprite &sprite, sf::RenderWindow &window) {
     float x = (float)sf::Mouse::getPosition(window).x;
     float y = (float)sf::Mouse::getPosition(window).y;
     float up = sprite.getPosition().y;
@@ -62,8 +60,14 @@ void setCurrentSlide(int currentSlide, std::vector<sf::Texture> &slides, sf::Spr
 
 int main() {
     int numSlides = 45;
-    std::vector<sf::Texture> slides;
-    getSlides(slides, numSlides);
+    std::vector<sf::Texture> slideImages;
+    std::vector<sf::Texture> gif24;
+    std::vector<sf::Texture> gif28;
+    std::vector<sf::Texture> gif29;
+    std::vector<sf::Texture> gif30;
+    std::vector<sf::Texture> gif34;
+    std::vector<sf::Texture> gif41;
+    loadSlideImages(slides, numSlides);
 
     sf::RenderWindow window;
     // What does this line below do? Document what those numbers mean
