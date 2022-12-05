@@ -59,15 +59,21 @@ void setCurrentSlide(int currentSlide, std::vector<sf::Texture> &slides, sf::Spr
 }
 
 int main() {
-    int numSlides = 45;
-    std::vector<sf::Texture> slideImages;
-    std::vector<sf::Texture> gif24;
-    std::vector<sf::Texture> gif28;
-    std::vector<sf::Texture> gif29;
-    std::vector<sf::Texture> gif30;
-    std::vector<sf::Texture> gif34;
-    std::vector<sf::Texture> gif41;
-    loadSlideImages(slides, numSlides);
+    // Load all image textures
+    sf::Texture slideTextures[45];
+    sf::Texture errorTextures[4];
+    sf::Texture boxTexture;
+    sf::Texture buttonTextures[18];
+    sf::Texture textfieldTextures[5];
+    // Load all animated textures
+    sf::Texture slide24Gif[3];
+    sf::Texture slide28Gif[29];
+    sf::Texture slide29Gif[27];
+    sf::Texture slide30Gif[82];
+    sf::Texture slide34Gif[17];
+    // slide 41 gif WIP
+    // - all gifs used in the diagrams
+    
 
     sf::RenderWindow window;
     // What does this line below do? Document what those numbers mean
