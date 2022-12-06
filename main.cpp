@@ -79,7 +79,7 @@ int main() {
     int slideIndex = 0;
 
     setCurrentSlide(slideBG, slideIndex, textureStore);
-    //slideGif.setTexture(textureStore.buttonTxrs[0]);
+    slideGif.setTexture(textureStore.buttonTxrs[0]);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -109,6 +109,7 @@ int main() {
         }
         window.clear(sf::Color(0, 0, 0, 255));
         window.draw(slideBG);
+        window.draw(slideGif);
         window.display();
     }
 }
