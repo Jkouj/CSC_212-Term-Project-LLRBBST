@@ -74,9 +74,9 @@ int main() {
     sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
 
-    Textbox textbox(sf::Color::Red, 50, false);
-    textbox.setFont(pixilFont);
-    textbox.setPosition(100, 100);
+//     Textbox textbox(sf::Color::Red, 50, false);
+//     textbox.setFont(pixilFont);
+//     textbox.setPosition(100, 100);
     
     setCurrentSlide(slideBG, slideIndex, textureStore);
 
@@ -86,8 +86,8 @@ int main() {
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
-                case sf::Event::TextEntered:
-                    textbox.typed(event);
+//                 case sf::Event::TextEntered:
+//                     textbox.typed(event);
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
