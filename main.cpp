@@ -25,14 +25,14 @@ public:
     Txr textfieldCloseGifs[15];
     Txr textfieldPromptGifs[56];
 
-    static void loadTexture(string &path, Txr &texture, int i) {
+    static void loadTexture(string path, Txr &texture, int i) {
         if (texture.loadFromFile(path + to_string(i) + ".jpg")) {
             cout << "Error loading texture from path: " << path << endl;
             exit(0);
         }
     }
 
-    static void loadTextureGroup(string &path, Txr *textures, int numTextures) {
+    static void loadTextureGroup(string path, Txr *textures, int numTextures) {
         Txr temp;
         for (int i = 0; i < numTextures; i++) {
             loadTexture(path, temp, i);
