@@ -241,7 +241,7 @@ int main() {
     
     bool inTextbox = false;
 
-    setCurrentSlide(slideBG, slideIndex, textureStore, isInTextbox, textbox);
+    setCurrentSlide(slideBG, slideIndex, textureStore, inTextbox, textbox);
     
     while (window.isOpen()) {
         sf::Event event;
@@ -257,14 +257,14 @@ int main() {
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                         if (slideIndex != 45) {
                             slideIndex++;
-                            setCurrentSlide(slideBG, slideIndex, textureStore, isInTextbox, textbox);
+                            setCurrentSlide(slideBG, slideIndex, textureStore, inTextbox, textbox);
                         }
                     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
                                sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
                                sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
                         if (slideIndex != 0) {
                             slideIndex--;
-                            setCurrentSlide(slideBG, slideIndex, textureStore, isInTextbox, textbox);
+                            setCurrentSlide(slideBG, slideIndex, textureStore, inTextbox, textbox);
                         }
                     }
             }
