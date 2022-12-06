@@ -62,6 +62,14 @@ void setCurrentSlide(sf::Sprite &slideBG, int slideIndex, TextureStore &textureS
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
 }
 
+void setSprite(sf::Sprite &sprite, float pixelWidth, float pixelHeight, float pixelX, float pixelY) {
+    auto frame = sprite.getLocalBounds();
+    float currentWidth = frame.width, currentHeight = frame.height;
+    float xScale = pixelWidth * 20 / currentWidth, yScale = pixelHeight * 20 / currentHeight;
+    sprite.setScale(xScale, yScale);
+    sprite.setPosition(pixelX * 20, pixelY * 20);
+}
+
 int main() {
     // Load textures
     TextureStore textureStore = TextureStore();
@@ -79,6 +87,7 @@ int main() {
     int slideIndex = 0;
 
     setCurrentSlide(slideBG, slideIndex, textureStore);
+    setSprite(slideGif, 72, 72, 128 - 72, 0);
     slideGif.setTexture(textureStore.buttonTxrs[0]);
 
     while (window.isOpen()) {
