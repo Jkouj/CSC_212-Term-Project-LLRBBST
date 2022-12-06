@@ -189,10 +189,4 @@ int main() {
         }
     }
     tree.print(words);
-    cout << endl << "What would you like to search for?" << endl;
-    getline(cin, input);
-    int sWord = words[tree.searchElement(input)];
-    int sCount = tree.searchCount(input);
-    cout << "word:  " << sWord << endl;
-    cout << "count: " << sCount << endl;
 }
