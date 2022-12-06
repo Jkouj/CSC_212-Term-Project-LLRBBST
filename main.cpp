@@ -8,8 +8,10 @@ using Txr = sf::Texture;
 
 void loadTexture(std::string &path, Txr &texture) {
     int i = 0;
-    texture.loadFromFile(path + std::to_string(i) + ".jpg");
-    // if loading failed, print error message and exit(0)
+    if (!texture.loadFromFile(path + std::to_string(i) + ".jpg")) {
+        cout << "Error loading texture from path: " + path + endl;
+        exit(0)';
+    }
 }
 
 void loadTextureGroup(std::string &path, Txr *textures, int numTextures) {
@@ -73,10 +75,6 @@ int main() {
 
     sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
-
-//     Textbox textbox(sf::Color::Red, 50, false);
-//     textbox.setFont(pixilFont);
-//     textbox.setPosition(100, 100);
     
     setCurrentSlide(slideBG, slideIndex, textureStore);
 
@@ -85,9 +83,9 @@ int main() {
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
+                    cout << "Window was closed. :/" << endl;
                     window.close();
-//                 case sf::Event::TextEntered:
-//                     textbox.typed(event);
+                    exit(0);
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
@@ -108,7 +106,6 @@ int main() {
         }
         window.clear(sf::Color(0, 0, 0, 255));
         window.draw(slideBG);
-//         textbox.drawTo(window);
         window.display();
     }
 }
