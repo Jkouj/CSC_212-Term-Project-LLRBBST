@@ -63,8 +63,7 @@ void setCurrentSlide(sf::Sprite &slideBG, int slideIndex, TextureStore &textureS
 }
 
 void setSprite(sf::Sprite &sprite, float pixelWidth, float pixelHeight, float pixelX, float pixelY) {
-    auto frame = sprite.getLocalBounds();
-    float currentWidth = frame.width, currentHeight = frame.height;
+    float currentWidth = sprite.getLocalBounds().width, currentHeight = sprite.getLocalBounds().height;
     float xScale = pixelWidth * 20 / currentWidth, yScale = pixelHeight * 20 / currentHeight;
     sprite.setScale(xScale, yScale);
     sprite.setPosition(pixelX * 20, pixelY * 20);
