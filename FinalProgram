@@ -8,6 +8,16 @@ class LLRBBST {
 public:
 
     LLRBBST() { root = nullptr; }
+    
+    int searchElement(int thing) {
+        Node* myNode = search(thing);
+        return myNode->thing;
+    }
+    
+    int searchCount(int thing) {
+        Node* myNode = search(thing);
+        return myNode->numDuplicates + 1;
+    }
 
     void insert(int thing) {
         root = insert(root, thing);
@@ -30,6 +40,16 @@ public:
     }
 
 private:
+
+    Node* search(int thing) {
+        Node **current = &root;
+        while (*current) {
+            if (thing < (*current)->thing) current = &(*current)->left;
+            else if (thing > (*current)->thing) current = &(*current)->right;
+            else return *current;
+        }
+        return nullptr;
+    }
 
     typedef struct Node {
         int thing, numDuplicates;
@@ -169,4 +189,10 @@ int main() {
         }
     }
     tree.print(words);
+    cout << endl << "What would you like to search for?" << endl;
+    getline(cin, input);
+    int sWord = words[tree.searchElement(input)];
+    int sCount = tree.searchCount(input);
+    cout << "word:  " << sWord << endl;
+    cout << "count: " << sCount << endl;
 }
