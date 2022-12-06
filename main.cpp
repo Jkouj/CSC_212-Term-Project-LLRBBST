@@ -99,7 +99,7 @@ int main() {
                         }
                     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
                                sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
-                               sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
+                               sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
                         if (slideIndex != 0) {
                             slideIndex--;
                             setCurrentSlide(slideBG, slideIndex, textureStore);
