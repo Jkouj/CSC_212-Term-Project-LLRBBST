@@ -36,7 +36,7 @@ public:
     Txr textfieldOpenGifs[20];
     Txr textfieldCloseGifs[15];
     Txr textfieldPromptGifs[56];
-    void load() {
+    TextureStore() {
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/slide", slideTxrs, 45);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/errors", errorTxrs, 4);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/buttons", buttonTxrs, 18);
@@ -54,14 +54,13 @@ public:
     }
 };
 
-void setCurrentSlide(sf::Sprite &slideBG, sf::Sprite &slideGif, int slideIndex, TextureStore &textureStore) {
+void setCurrentSlide(sf::Sprite &slideBG, int slideIndex, TextureStore &textureStore) {
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
 }
 
 int main() {
     // Load textures
     TextureStore textureStore = TextureStore();
-    textureStore.load();
     // Load pixil font
     sf::Font pixilFont;
     pixilFont.loadFromFile("/Users/Joey/CLionProjects/HelloSFML/pixilfont.ttf");
@@ -74,11 +73,12 @@ int main() {
 
     sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
-    setCurrentSlide(slideIndex);
 
     Textbox textbox(sf::Color::Red, 50, false);
     textbox.setFont(pixilFont);
     textbox.setPosition(100, 100);
+    
+    setCurrentSlide(slideBG, slideIndex, textureStore);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -87,29 +87,27 @@ int main() {
                 case sf::Event::Closed:
                     window.close();
                 case sf::Event::TextEntered:
-                    textbox1.typed(event);
-                    break;
+                    textbox.typed(event);
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                        if (current != 45) {
-                            current++;
-                            setCurrentSlide(currentSlide, slides, image);
+                        if (slideIndex != 45) {
+                            slideIndex++;
+                            setCurrentSlide(slideBG, slideIndex, textureStore);
                         }
-                    }
-                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+                    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
                             sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
                             sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)) {
-                        if (current != 0) {
-                            current--;
-                            setCurrentSlide(currentSlide);
+                        if (slideIndex != 0) {
+                            slideIndex--;
+                            setCurrentSlide(slideBG, slideIndex, textureStore);
                         }
                     }
             }
         }
         window.clear(sf::Color(0, 0, 0, 255));
-        window.draw(image);
+        window.draw(slideBG);
         textbox.drawTo(window);
         window.display();
     }
