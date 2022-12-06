@@ -10,7 +10,7 @@ void loadTexture(std::string &path, Txr &texture) {
     int i = 0;
     if (!texture.loadFromFile(path + std::to_string(i) + ".jpg")) {
         cout << "Error loading texture from path: " + path + endl;
-        exit(0)';
+        exit(0);
     }
 }
 
