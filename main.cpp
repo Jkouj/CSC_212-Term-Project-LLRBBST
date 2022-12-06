@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Textbox.h"
-#include "Button.h"
+//#include "Textbox.h"
+//#include "Button.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -23,13 +23,14 @@ public:
     Txr diagramSearch[29];
     Txr textfieldOpenGifs[20];
     Txr textfieldCloseGifs[15];
-    Txr textfieldPromptGifs[56];
+    //Txr textfieldPromptGifs[56];
 
     static void loadTexture(string path, Txr &texture, int i) {
-        if (texture.loadFromFile(path + to_string(i) + ".jpg")) {
-            cout << "Error loading texture from path: " << path << endl;
-            exit(0);
-        }
+        texture.loadFromFile(path + to_string(i) + ".jpg");
+//        if (texture.loadFromFile(path + to_string(i) + ".jpg")) {
+//            cout << "Error loading texture from path: " << path << endl;
+//            exit(0);
+//        }
     }
 
     static void loadTextureGroup(string path, Txr *textures, int numTextures) {
@@ -70,7 +71,7 @@ int main() {
     // Create window
     sf::RenderWindow window;
     sf::Vector2i centerWindow((sf::VideoMode::getDesktopMode().width / 2) - 1280, (sf::VideoMode::getDesktopMode().height / 2) - 900);
-    window.create(sf::VideoMode(1280, 720), "SFML Project");
+    window.create(sf::VideoMode(2560, 1440), "SFML Project");
     window.setPosition(centerWindow);
     window.setKeyRepeatEnabled(true);
 
@@ -78,7 +79,7 @@ int main() {
     int slideIndex = 0;
 
     setCurrentSlide(slideBG, slideIndex, textureStore);
-    slideGif.setTexture(textureStore.buttonTextures[0])
+    //slideGif.setTexture(textureStore.buttonTxrs[0]);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -87,7 +88,7 @@ int main() {
                 case sf::Event::Closed:
                     cout << "Window was closed. :/" << endl;
                     window.close();
-                    exit(0);
+                    //exit(0);
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
