@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-//#include "Textbox.h"
-//#include "Button.h"
+#include "Textbox.h"
+#include "Button.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -205,18 +205,13 @@ public:
 
 void setCurrentSlide(sf::Sprite &slideBG, int slideIndex, TextureStore &textureStore, bool &inTextbox, Textbox &textbox) {
     slideBG.setTexture(textureStore.slideTxrs[slideIndex]);
-    if (slideShow == 44) {
+    if (slideIndex == 1) {
         inTextbox = true;
         textbox.setSelected(true);
     } else {
         inTextbox = false;
         textbox.setSelected(false);
     }
-}
-
-void setSprite(sf::Sprite &sprite, float xScale, float yScale, float pixelX, float pixelY) {
-    sprite.setScale(xScale, yScale);
-    sprite.setPosition(pixelX * 20, pixelY * 20);
 }
 
 int main() {
@@ -233,16 +228,18 @@ int main() {
     window.setKeyRepeatEnabled(true);
 
     sf::Sprite slideBG, slideGif;
+    slideGif.setPosition({500,500});
     int slideIndex = 0;
-    
+    int currentGif = 0;
+
     Textbox textbox(sf::Color::Black, 50, true);
     textbox.setFont(pixilFont);
-    textbox.setPosition(0, 0);
-    
+    textbox.setPosition({0, 0});
+
     bool inTextbox = false;
 
     setCurrentSlide(slideBG, slideIndex, textureStore, inTextbox, textbox);
-    
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -255,6 +252,10 @@ int main() {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                        if (slideIndex!=6 && slideIndex!=9 && slideIndex!=12 &&
+                            slideIndex!=26 && slideIndex!=27 && slideIndex!=28 && slideIndex!=31){
+                            slideGif.setPosition({-1000,-1000});
+                        }
                         if (slideIndex != 45) {
                             slideIndex++;
                             setCurrentSlide(slideBG, slideIndex, textureStore, inTextbox, textbox);
@@ -262,15 +263,72 @@ int main() {
                     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
                                sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
                                sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
+                        if (slideIndex!=6 && slideIndex!=9 && slideIndex!=12 &&
+                            slideIndex!=26 && slideIndex!=27 && slideIndex!=28 && slideIndex!=31){
+                            slideGif.setPosition({-1000,-1000});
+                        }
                         if (slideIndex != 0) {
                             slideIndex--;
                             setCurrentSlide(slideBG, slideIndex, textureStore, inTextbox, textbox);
+                        }
+                    }
+                    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+                        currentGif += 1;
+                        if (slideIndex == 6){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 55) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagram1[currentGif]);
+                        }
+                        else if (slideIndex == 9){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 55) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagram2[currentGif]);
+                        }
+                        else if (slideIndex == 11){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 22) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagram3[currentGif]);
+                        }
+                        else if (slideIndex == 28){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 27) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagramInsert[currentGif]);
+                        }
+                        else if (slideIndex == 29){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 82) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagramDeletion[currentGif]);
+                        }
+                        else if (slideIndex == 34){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 17) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagramRotation[currentGif]);
+                        }
+                        else if (slideIndex == 31){
+                            slideGif.setPosition({500,500});
+                            if (currentGif == 29) {
+                                currentGif = 0;
+                            }
+                            slideGif.setTexture(textureStore.diagramSearch[currentGif]);
                         }
                     }
             }
         }
         window.clear(sf::Color(0, 0, 0, 255));
         window.draw(slideBG);
+        window.draw(slideGif);
         textbox.drawTo(window);
         window.display();
     }
