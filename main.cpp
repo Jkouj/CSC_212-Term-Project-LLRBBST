@@ -80,7 +80,7 @@ public:
 
 
 
-void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, TextureStore &store, int currentGif) {
+void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, TextureStore &store, int &currentGif) {
     slideBG.setTexture(store.slideTxrs[slideIndex]);
     
     if (slideIndex == 1) textbox.setSelected(true);
