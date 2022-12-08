@@ -149,6 +149,8 @@ int main() {
     setCurrentSlide(slideBG, textbox, slideIndex, store);
     positionGif(slideGif, slideIndex);
     // Update
+    sf::Clock clock;
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -166,6 +168,7 @@ int main() {
                             setCurrentSlide(slideBG, textbox, slideIndex, store);
                             positionGif(slideGif, slideIndex);
                             gifFrameIndex = 0;
+                            clock.restart();
                         }
                     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
                         // Prev slide
@@ -174,13 +177,15 @@ int main() {
                             setCurrentSlide(slideBG, textbox, slideIndex, store);
                             positionGif(slideGif, slideIndex);
                             gifFrameIndex = 0;
+                            clock.restart();
                         }
-                    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-                        // Next gif frame
-                        updateGifFrame(slideGif, slideIndex, store, gifFrameIndex);
                     }
                 default:
                     break;
+            }
+            if (clock.getElapsedTime.asMilliseconds >= 100) {
+                updateGifFrame(slideGif, slideIndex, store, gifFrameIndex);
+                clock.restart();
             }
         }
         window.clear(sf::Color(0, 0, 0, 255));
