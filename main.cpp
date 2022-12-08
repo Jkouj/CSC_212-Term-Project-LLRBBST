@@ -209,9 +209,9 @@ void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, Text
 
 void positionGif(sf::Sprite &gif, int slideIndex) {
     if (slideIndex==6 || slideIndex==9 || slideIndex==12 || slideIndex==26 || slideIndex==27 || slideIndex==28 || slideIndex==31) {
-        gif.setPosition({-1000,-1000});
-    } else {
         gif.setPosition({500,500});
+    } else {
+        gif.setPosition({-1000,-1000});
     }
 }
 
