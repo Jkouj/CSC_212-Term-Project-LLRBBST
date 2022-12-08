@@ -80,17 +80,27 @@ public:
 
 
 
-void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, TextureStore &store) {
+void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, TextureStore &store, int currentGif) {
     slideBG.setTexture(store.slideTxrs[slideIndex]);
+    
     if (slideIndex == 1) textbox.setSelected(true);
     else textbox.setSelected(false);
+    
+    if (slideIndex == 6) currentGif = 0;
+    else if (slideIndex == 9) currentGif = 1;
+    else if (slideIndex == 12) currentGif = 2;
+    else if (slideIndex == 26) currentGif = 3;
+    else if (slideIndex == 27) currentGif = 4;
+    else if (slideIndex == 28) currentGif = 5;
+    else if (slideIndex == 31) currentGif = 6;
+    else currentGif = -1;
 }
 
-void positionGif(sf::Sprite &gif, int slideIndex) {
-    if (slideIndex==6 || slideIndex==9 || slideIndex==12 || slideIndex==26 || slideIndex==27 || slideIndex==28 || slideIndex==31) {
-        gif.setPosition({500,500});
-    } else {
+void positionGif(sf::Sprite &gif, int currentGif) {
+    if (currentGif == -1) {
         gif.setPosition({-1000,-1000});
+    } else {
+        gif.setPosition({500,500});
     }
 }
 
@@ -141,6 +151,7 @@ int main() {
     sf::Sprite slideBG, slideGif;
     int slideIndex = 0;
     int gifFrameIndex = 0;
+    int currentGif = -1;
     // Textbox
     Textbox textbox(sf::Color::Black, 50, true);
     textbox.setFont(pixilFont);
@@ -150,7 +161,6 @@ int main() {
     positionGif(slideGif, slideIndex);
     // Update
     sf::Clock clock;
-    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -165,8 +175,8 @@ int main() {
                         // Next slide
                         if (slideIndex != 45) {
                             slideIndex++;
-                            setCurrentSlide(slideBG, textbox, slideIndex, store);
-                            positionGif(slideGif, slideIndex);
+                            setCurrentSlide(slideBG, textbox, slideIndex, store, currentGif);
+                            positionGif(slideGif, currentGif);
                             gifFrameIndex = 0;
                             clock.restart();
                         }
@@ -174,8 +184,8 @@ int main() {
                         // Prev slide
                         if (slideIndex != 0) {
                             slideIndex--;
-                            setCurrentSlide(slideBG, textbox, slideIndex, store);
-                            positionGif(slideGif, slideIndex);
+                            setCurrentSlide(slideBG, textbox, slideIndex, store, currentGif);
+                            positionGif(slideGif, currentGif);
                             gifFrameIndex = 0;
                             clock.restart();
                         }
