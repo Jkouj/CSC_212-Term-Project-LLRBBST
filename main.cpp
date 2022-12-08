@@ -93,7 +93,7 @@ void updateGifFrame(sf::Sprite &gif, int slideIndex, TextureStore &store, int &f
     } else if (slideIndex == 31) {
         endIndex = 29;
         frameTextures = store.diagramSearch;
-    } else {return; }
+    } else { return; }
     frameIndex++;
     if (frameIndex == endIndex) frameIndex = 0;
     gif.setTexture(store.diagramSearch[frameIndex]);
