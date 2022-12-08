@@ -1,0 +1,45 @@
+#include <SFML/Graphics.hpp>
+using namespace std;
+
+int main() {
+    sf::RenderWindow window;
+    sf::Sprite sprite;
+    sf::Clock clock;
+    Texture *frames;
+    int *frameDurations;
+    int numFrames = 0;
+    int currentFrame;
+    int currentDuration;
+    // If first slide has gif, prepare animation
+    if (numFrames != 0) {
+        currentFrame == 0;
+        currentDuration = frameDurations[0];
+    }
+
+    while (window.isOpen()) {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::EventType::Closed) window.close();
+        }
+        if (didChangeSlide) {
+            if (slideHasGif) {
+                frames = gifFrames;
+                frameDurations = gifFrameDurations;
+                numFrames = gifNumFrames;
+                clock.restart();
+            } else {
+                numFrames = 0;
+            }
+        }
+        if (numFrames != 0 && clock.getElapsedTime().asMilliseconds >= currentDuration) {
+            // Change the frame
+            currentFrame++;
+            if (currentFrame >= numFrames) currentFrame = 0;
+            sprite.setTexture(frames[currentFrame]);
+            clock.restart();
+        }
+
+        window.clear();
+        window.draw(sprite);
+        window.display();
+    }
+}
