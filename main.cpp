@@ -36,10 +36,14 @@ public:
                                 100,100,500,400,100,
                                 100,100,100,100,100};
     Txr diagram3[22];
+    int diagram3Durations[22] = {50,50,50,50,50,50,50,500,500,450,500
+                                ,500,500,500,100,500,350,500,500,500,500,500,100};
     Txr diagramInsert[27];
     Txr diagramDeletion[82];
     Txr diagramRotation[17];
+    int diagramRotationDurations[17] = {500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,30};
     Txr diagramSearch[29];
+    int diagramSearchDurations[29] = {500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,100,500,30,30,30,30,500,30,30,30,30,500,100};
     Txr textfieldOpenGifs[20];
     Txr textfieldCloseGifs[15];
     
