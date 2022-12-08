@@ -70,33 +70,32 @@ void positionGif(sf::Sprite &gif, int slideIndex) {
 }
 
 void updateGifFrame(sf::Sprite &gif, int slideIndex, TextureStore &store, int &frameIndex) {
-    int endIndex;
-    Txr *frameTextures;
-    if (slideIndex == 6) {
-        endIndex = 55;
-        frameTextures = store.diagram1;
-    } else if (slideIndex == 9) {
-        endIndex = 55;
-        frameTextures = store.diagram2;
-    } else if (slideIndex == 11) {
-        endIndex = 22;
-        frameTextures = store.diagram3;
-    } else if (slideIndex == 28) {
-        endIndex = 27;
-        frameTextures = store.diagramInsert;
-    } else if (slideIndex == 29) {
-        endIndex = 82;
-        frameTextures = store.diagramDeletion;
-    } else if (slideIndex == 34) {
-        endIndex = 17;
-        frameTextures = store.diagramRotation;
-    } else if (slideIndex == 31) {
-        endIndex = 29;
-        frameTextures = store.diagramSearch;
-    } else { return; }
     frameIndex++;
-    if (frameIndex == endIndex) frameIndex = 0;
-    gif.setTexture(store.diagramSearch[frameIndex]);
+    int endIndex;
+    if (slideIndex == 6) {
+        if (frameIndex == 55) frameIndex = 0;
+        gif.setTexture(store.diagram1[frameIndex]);
+    } else if (slideIndex == 9) {
+        if (frameIndex == 55) frameIndex = 0;
+        gif.setTexture(store.diagram2[frameIndex]);
+    } else if (slideIndex == 11) {
+        if (frameIndex == 22) frameIndex = 0;
+        gif.setTexture(store.diagram3[frameIndex]);
+    } else if (slideIndex == 28) {
+        if (frameIndex == 27) frameIndex = 0;
+        gif.setTexture(store.diagramInsert[frameIndex]);
+    } else if (slideIndex == 29) {
+        if (frameIndex == 82) frameIndex = 0;
+        gif.setTexture(store.diagramDeletion[frameIndex]);
+    } else if (slideIndex == 34) {
+        if (frameIndex == 17) frameIndex = 0;
+        gif.setTexture(store.diagramRotation[frameIndex]);
+    } else if (slideIndex == 31) {
+        if (frameIndex == 29) frameIndex = 0;
+        gif.setTexture(store.diagramSearch[frameIndex]);
+    } else {
+        frameIndex--;
+    }
 }
 
 
