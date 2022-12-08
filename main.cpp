@@ -244,6 +244,7 @@ void updateGifFrame(sf::Sprite &gif, int slideIndex, TextureStore &store, int &f
 }
 
 
+
 int main() {
     // Textures
     TextureStore store = TextureStore();
