@@ -216,7 +216,7 @@ void positionGif(sf::Sprite &gif, int slideIndex) {
 }
 
 void updateGifFrame(sf::Sprite &gif, int slideIndex, TextureStore &store, int &frameIndex) {
-    gifCurrentFrame++;
+    frameIndex++;
     int endIndex;
     if (slideIndex == 6) {
         if (frameIndex == 55) frameIndex = 0;
@@ -240,7 +240,7 @@ void updateGifFrame(sf::Sprite &gif, int slideIndex, TextureStore &store, int &f
         if (frameIndex == 29) frameIndex = 0;
         gif.setTexture(store.diagramSearch[frameIndex]);
     } else {
-        gifCurrentFrame--;
+        frameIndex--;
     }
 }
 
