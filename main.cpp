@@ -11,7 +11,7 @@ using Txr = sf::Texture;
 
 class LLRBBST {
 public:
-
+    
     LLRBBST() { root = nullptr; }
 
     void insert(int thing) {
@@ -33,9 +33,9 @@ public:
         output += "}\n";
         cout << output;
     }
-
+    
 private:
-
+    
     typedef struct Node {
         int thing, numDuplicates;
         bool color;
