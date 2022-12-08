@@ -82,10 +82,10 @@ public:
 
 void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, TextureStore &store, int &currentGif) {
     slideBG.setTexture(store.slideTxrs[slideIndex]);
-    
+
     if (slideIndex == 1) textbox.setSelected(true);
     else textbox.setSelected(false);
-    
+
     if (slideIndex == 6) currentGif = 0;
     else if (slideIndex == 9) currentGif = 1;
     else if (slideIndex == 12) currentGif = 2;
@@ -104,28 +104,27 @@ void positionGif(sf::Sprite &gif, int currentGif) {
     }
 }
 
-void updateGifFrame(sf::Sprite &gif, int slideIndex, TextureStore &store, int &frameIndex) {
+void updateGifFrame(sf::Sprite &gif, int currentGif, TextureStore &store, int &frameIndex) {
     frameIndex++;
-    int endIndex;
-    if (slideIndex == 6) {
+    if (currentGif == 0) {
         if (frameIndex == 55) frameIndex = 0;
         gif.setTexture(store.diagram1[frameIndex]);
-    } else if (slideIndex == 9) {
+    } else if (currentGif == 1) {
         if (frameIndex == 55) frameIndex = 0;
         gif.setTexture(store.diagram2[frameIndex]);
-    } else if (slideIndex == 11) {
+    } else if (currentGif == 2) {
         if (frameIndex == 22) frameIndex = 0;
         gif.setTexture(store.diagram3[frameIndex]);
-    } else if (slideIndex == 28) {
+    } else if (currentGif == 3) {
         if (frameIndex == 27) frameIndex = 0;
         gif.setTexture(store.diagramInsert[frameIndex]);
-    } else if (slideIndex == 29) {
+    } else if (currentGif == 4) {
         if (frameIndex == 82) frameIndex = 0;
         gif.setTexture(store.diagramDeletion[frameIndex]);
-    } else if (slideIndex == 34) {
+    } else if (currentGif == 5) {
         if (frameIndex == 17) frameIndex = 0;
         gif.setTexture(store.diagramRotation[frameIndex]);
-    } else if (slideIndex == 31) {
+    } else if (currentGif == 6) {
         if (frameIndex == 29) frameIndex = 0;
         gif.setTexture(store.diagramSearch[frameIndex]);
     } else {
@@ -194,7 +193,7 @@ int main() {
                     break;
             }
             if (clock.getElapsedTime.asMilliseconds >= 100) {
-                updateGifFrame(slideGif, slideIndex, store, gifFrameIndex);
+                updateGifFrame(slideGif, currentGif, store, gifFrameIndex);
                 clock.restart();
             }
         }
