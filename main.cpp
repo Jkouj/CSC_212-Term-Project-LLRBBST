@@ -11,10 +11,7 @@ using Txr = sf::Texture;
 
 class TextureStore {
 public:
-    Txr boxTxr;
     Txr slideTxrs[46];
-    Txr errorTxrs[4];
-    Txr buttonTxrs[18];
     Txr textfieldBGTxrs[5];
     Txr diagram1[55];
     int diagram1Durations[55] = {100,50,100,50,50,50,200,50,50,50,
@@ -48,8 +45,6 @@ public:
     int diagramRotationDurations[17] = {500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,30};
     Txr diagramSearch[29];
     int diagramSearchDurations[29] = {500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,100,500,30,30,30,30,500,30,30,30,30,500,100};
-    Txr textfieldOpenGifs[20];
-    Txr textfieldCloseGifs[15];
     
     static void loadTexture(string path, Txr &texture, int i) {
         texture.loadFromFile(path + to_string(i) + ".jpg");
@@ -63,8 +58,6 @@ public:
     }
     TextureStore() {
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/f", slideTxrs, 46);
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/errors/f", errorTxrs, 4);
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/buttons/f", buttonTxrs, 18);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldBG/f", textfieldBGTxrs, 5);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram1/f", diagram1, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram2/f", diagram2, 55);
@@ -73,8 +66,6 @@ public:
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramDeletion/f", diagramDeletion, 82);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramRotation/f", diagramRotation, 17);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramSearch/f", diagramSearch, 29);
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldOpen/f", textfieldOpenGifs, 20);
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldClose/f", textfieldCloseGifs, 15);
     }
 };
 
