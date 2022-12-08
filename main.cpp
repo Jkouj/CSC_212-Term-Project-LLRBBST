@@ -7,8 +7,9 @@
 using namespace std;
 using Txr = sf::Texture;
 
-class LLRBBST {
 
+
+class LLRBBST {
 public:
 
     LLRBBST() { root = nullptr; }
