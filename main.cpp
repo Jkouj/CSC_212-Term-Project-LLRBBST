@@ -160,9 +160,8 @@ int main() {
     
     while (window.isOpen()) {
         // Update gif
-        if ((currentGif != -1) and clock.getElapsedTime().asMilliseconds() >= 100) {
+        if (clock.getElapsedTime().asMilliseconds() >= 100) {
             updateGifFrame(slideGif, currentGif, store, gifFrameIndex, currentDuration);
-            cout << to_string(currentDuration) << " ";
             clock.restart();
         }
         // Handle UI events
