@@ -178,9 +178,8 @@ int main() {
                             clock.restart();
                         }
                     }
-                default:
-                    break;
             }
+            // Update gif
             if (clock.getElapsedTime().asMilliseconds() >= 100) {
                 updateGifFrame(slideGif, currentGif, store, gifFrameIndex);
                 clock.restart();
