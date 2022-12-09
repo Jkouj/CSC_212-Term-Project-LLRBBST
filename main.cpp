@@ -11,7 +11,7 @@ using Txr = sf::Texture;
 
 class TextureStore {
 public:
-    Txr slideTxrs[39];
+    Txr slideTxrs[40];
     Txr diagram1[55];
     int diagram1Durations[55] = {100,50,100,50,50,50,200,50,50,50,
                                  50,50,50,50,100,500,500,130,500,250,
@@ -58,7 +58,7 @@ public:
         }
     }
     TextureStore() {
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/f", slideTxrs, 39);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/f", slideTxrs, 40);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram1/f", diagram1, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram2/f", diagram2, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram3/f", diagram3, 22);
@@ -184,7 +184,7 @@ int main() {
                     // Pressed a key
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                         // Next slide
-                        if (slideIndex != 45) {
+                        if (slideIndex != 39) {
                             slideIndex++;
                             setCurrentSlide(slideBG, textbox, slideIndex, store, currentGif);
                             positionGif(slideGif, currentGif);
