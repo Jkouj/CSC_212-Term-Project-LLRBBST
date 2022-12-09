@@ -183,7 +183,7 @@ int main() {
                 default:
                     break;
             }
-            if (clock.getElapsedTime.asMilliseconds >= 100) {
+            if (clock.getElapsedTime().asMilliseconds() >= 100) {
                 updateGifFrame(slideGif, currentGif, store, gifFrameIndex);
                 clock.restart();
             }
