@@ -156,12 +156,13 @@ int main() {
     positionGif(slideGif, slideIndex);
     // Update
     sf::Clock clock;
-    int currentDuration;
+    int currentDuration = 0;
     
     while (window.isOpen()) {
         // Update gif
-        if (currentGif != -1 and clock.getElapsedTime().asMilliseconds() >= currentDuration) {
+        if ((currentGif != -1) and clock.getElapsedTime().asMilliseconds() >= 100) {
             updateGifFrame(slideGif, currentGif, store, gifFrameIndex, currentDuration);
+            cout << to_string(currentDuration) << " ";
             clock.restart();
         }
         // Handle UI events
