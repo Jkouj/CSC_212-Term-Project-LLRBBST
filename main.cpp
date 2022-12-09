@@ -89,13 +89,17 @@ void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, Text
     else currentGif = -1;
 }
 
+void resize(sf::Sprite sprite, int width, int height) {
+    auto rect = gif.getTextureRect();
+    gif.setScale(float(width) / float(rect.width), float(height) / float(rect.height));
+}
+
 void positionGif(sf::Sprite &gif, int currentGif) {
     if (currentGif == -1) {
         gif.setPosition({-1000,-1000});
     } else {
         gif.setPosition({0,0});
-        auto rect = gif.getTextureRect();
-        gif.setScale(float(1440) / float(rect.width), float(1440) / float(rect.height));
+        resize(gif, 1440, 1440);
     }
 }
 
