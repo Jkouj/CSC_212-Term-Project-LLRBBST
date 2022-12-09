@@ -94,8 +94,8 @@ void positionGif(sf::Sprite &gif, int currentGif) {
         gif.setPosition({-1000,-1000});
     } else {
         gif.setPosition({0,0});
-        auto size = gif.getSize();
-        gif.setScale(1440 / size.x, 1440 / size.y);
+        auto rect = gif.getTextureRect();
+        gif.setScale(1440 / rect.width, 1440 / rect.height);
     }
 }
 
