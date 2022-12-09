@@ -102,14 +102,14 @@ void positionGif(sf::Sprite &gif, int currentGif) {
         gif.setPosition({560,0});
         resize(gif, 1440, 1440);
     } else if (currentGif == 2) {
-        gif.setPosition({0,0});
+        gif.setPosition({560,0});
         resize(gif, 1440, 1440);
     } else if (currentGif == 3) {
-        gif.setPosition({560,0});
+        gif.setPosition({1280,80});
         resize(gif, 1440, 1440);
     } else if (currentGif == 4) {
         gif.setPosition({560,0});
-        resize(gif, 1440, 1440);
+        resize(gif, 1280, 1280);
     } else if (currentGif == 5) {
         gif.setPosition({560,0});
         resize(gif, 1440, 1440);
