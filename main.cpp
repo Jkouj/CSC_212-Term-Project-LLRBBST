@@ -34,6 +34,8 @@ public:
     Txr diagram3[22];
     int diagram3Durations[22] = {50,50,50,50,50,50,50,500,500,450,500
             ,500,500,500,100,500,350,500,500,500,500,100};
+    Txr diagram4[3];
+    int diagram4Durations = {750,750,750};
     Txr diagramInsert[27];
     int diagramInsertDurations[27] = {500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,100};
     Txr diagramDeletion[82];
@@ -60,6 +62,7 @@ public:
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram1/f", diagram1, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram2/f", diagram2, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram3/f", diagram3, 22);
+        loadTextureGroup("PATH", diagram4, 3);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramInsert/f", diagramInsert, 27);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramDeletion/f", diagramDeletion, 82);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramRotation/f", diagramRotation, 17);
@@ -78,10 +81,11 @@ void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, Text
     if (slideIndex == 6) currentGif = 0;
     else if (slideIndex == 9) currentGif = 1;
     else if (slideIndex == 11) currentGif = 2;
-    else if (slideIndex == 28) currentGif = 3;
-    else if (slideIndex == 29) currentGif = 4;
-    else if (slideIndex == 30) currentGif = 5;
-    else if (slideIndex == 32) currentGif = 6;
+    else if (slideIndex == 22) currentGif = 3;
+    else if (slideIndex == 28) currentGif = 4;
+    else if (slideIndex == 29) currentGif = 5;
+    else if (slideIndex == 30) currentGif = 6;
+    else if (slideIndex == 32) currentGif = 7;
     else currentGif = -1;
 }
 
@@ -112,14 +116,18 @@ void updateGifFrame(sf::Sprite &gif, int currentGif, TextureStore &store, int &f
         gif.setTexture(store.diagramInsert[frameIndex]);
         currentDuration = store.diagramInsertDurations[frameIndex];
     } else if (currentGif == 4) {
+        if (frameIndex == 3) frameIndex = 0;
+        gif.setTexture(store.diagram4[frameIndex]);
+        currentDuration = store.diagram4Durations[frameIndex];
+    } else if (currentGif == 5) {
         if (frameIndex == 82) frameIndex = 0;
         gif.setTexture(store.diagramDeletion[frameIndex]);
         currentDuration = store.diagramDeletionDurations[frameIndex];
-    } else if (currentGif == 5) {
+    } else if (currentGif == 6) {
         if (frameIndex == 17) frameIndex = 0;
         gif.setTexture(store.diagramRotation[frameIndex]);
         currentDuration = store.diagramRotationDurations[frameIndex];
-    } else if (currentGif == 6) {
+    } else if (currentGif == 7) {
         if (frameIndex == 29) frameIndex = 0;
         gif.setTexture(store.diagramSearch[frameIndex]);
         currentDuration = store.diagramSearchDurations[frameIndex];
