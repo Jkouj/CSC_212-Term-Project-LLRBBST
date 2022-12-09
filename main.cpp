@@ -81,11 +81,11 @@ void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, Text
     if (slideIndex == 6) currentGif = 0;
     else if (slideIndex == 9) currentGif = 1;
     else if (slideIndex == 11) currentGif = 2;
-    else if (slideIndex == 22) currentGif = 3;
-    else if (slideIndex == 28) currentGif = 4;
-    else if (slideIndex == 29) currentGif = 5;
+    else if (slideIndex == 21) currentGif = 3;
+    else if (slideIndex == 25) currentGif = 7;
+    else if (slideIndex == 26) currentGif = 4;
+    else if (slideIndex == 27) currentGif = 5;
     else if (slideIndex == 30) currentGif = 6;
-    else if (slideIndex == 32) currentGif = 7;
     else currentGif = -1;
 }
 
