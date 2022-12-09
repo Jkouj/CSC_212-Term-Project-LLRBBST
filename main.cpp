@@ -89,7 +89,7 @@ void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, Text
     else currentGif = -1;
 }
 
-void resize(sf::Sprite sprite, int width, int height) {
+void resize(sf::Sprite &sprite, int width, int height) {
     auto rect = gif.getTextureRect();
     gif.setScale(float(width) / float(rect.width), float(height) / float(rect.height));
 }
