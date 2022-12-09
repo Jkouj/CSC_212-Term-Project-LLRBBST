@@ -35,7 +35,7 @@ public:
     int diagram3Durations[22] = {50,50,50,50,50,50,50,500,500,450,500
             ,500,500,500,100,500,350,500,500,500,500,100};
     Txr diagram4[3];
-    int diagram4Durations = {750,750,750};
+    int diagram4Durations[3] = {750,750,750};
     Txr diagramInsert[27];
     int diagramInsertDurations[27] = {500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,30,30,30,30,500,100};
     Txr diagramDeletion[82];
@@ -62,7 +62,7 @@ public:
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram1/f", diagram1, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram2/f", diagram2, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram3/f", diagram3, 22);
-        loadTextureGroup("PATH", diagram4, 3);
+        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram4/f", diagram4, 3);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramInsert/f", diagramInsert, 27);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramDeletion/f", diagramDeletion, 82);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagramRotation/f", diagramRotation, 17);
@@ -165,7 +165,7 @@ int main() {
     // Update
     sf::Clock clock;
     int currentDuration = 0;
-    
+
     while (window.isOpen()) {
         // Update gif
         if (clock.getElapsedTime().asMilliseconds() >= currentDuration) {
