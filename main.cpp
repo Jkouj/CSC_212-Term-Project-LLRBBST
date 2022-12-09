@@ -93,7 +93,8 @@ void positionGif(sf::Sprite &gif, int currentGif) {
     if (currentGif == -1) {
         gif.setPosition({-1000,-1000});
     } else {
-        gif.setPosition({500,500});
+        gif.setPosition({0,0});
+        gif.resize(1280, 1280);
     }
 }
 
