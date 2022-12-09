@@ -112,13 +112,13 @@ void updateGifFrame(sf::Sprite &gif, int currentGif, TextureStore &store, int &f
         gif.setTexture(store.diagram3[frameIndex]);
         currentDuration = store.diagram3Durations[frameIndex];
     } else if (currentGif == 3) {
-        if (frameIndex == 27) frameIndex = 0;
-        gif.setTexture(store.diagramInsert[frameIndex]);
-        currentDuration = store.diagramInsertDurations[frameIndex];
-    } else if (currentGif == 4) {
         if (frameIndex == 3) frameIndex = 0;
         gif.setTexture(store.diagram4[frameIndex]);
         currentDuration = store.diagram4Durations[frameIndex];
+    } else if (currentGif == 4) {
+        if (frameIndex == 27) frameIndex = 0;
+        gif.setTexture(store.diagramInsert[frameIndex]);
+        currentDuration = store.diagramInsertDurations[frameIndex];
     } else if (currentGif == 5) {
         if (frameIndex == 82) frameIndex = 0;
         gif.setTexture(store.diagramDeletion[frameIndex]);
