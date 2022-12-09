@@ -95,11 +95,32 @@ void resize(sf::Sprite sprite, int width, int height) {
 }
 
 void positionGif(sf::Sprite &gif, int currentGif) {
-    if (currentGif == -1) {
-        gif.setPosition({-1000,-1000});
-    } else {
+    if (currentGif == 0) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else if (currentGif == 1) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else if (currentGif == 2) {
         gif.setPosition({0,0});
         resize(gif, 1440, 1440);
+    } else if (currentGif == 3) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else if (currentGif == 4) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else if (currentGif == 5) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else if (currentGif == 6) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else if (currentGif == 7) {
+        gif.setPosition({560,0});
+        resize(gif, 1440, 1440);
+    } else {
+        gif.setPosition({-1000,-1000});
     }
 }
 
