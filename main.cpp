@@ -12,7 +12,6 @@ using Txr = sf::Texture;
 class TextureStore {
 public:
     Txr slideTxrs[46];
-    Txr textfieldBGTxrs[5];
     Txr diagram1[55];
     int diagram1Durations[55] = {100,50,100,50,50,50,200,50,50,50,
                                 50,50,50,50,100,500,500,130,500,250,
@@ -58,7 +57,6 @@ public:
     }
     TextureStore() {
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/slides/f", slideTxrs, 46);
-        loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/textFieldBG/f", textfieldBGTxrs, 5);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram1/f", diagram1, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram2/f", diagram2, 55);
         loadTextureGroup("/Users/Joey/CLionProjects/HelloSFML/gifs/images/diagram3/f", diagram3, 22);
