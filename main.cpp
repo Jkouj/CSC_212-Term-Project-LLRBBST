@@ -95,6 +95,8 @@ void resize(sf::Sprite &sprite, int width, int height) {
 }
 
 void positionGif(sf::Sprite &gif, int currentGif) {
+    int pos = gif.getPosition();
+    cout << currentGif << ": " << pos.x << ", " << pos.y << endl;
     if (currentGif == 0) {
         gif.setPosition({560,0});
         resize(gif, 1440, 1440);
