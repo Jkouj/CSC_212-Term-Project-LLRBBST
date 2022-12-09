@@ -149,7 +149,10 @@ int main() {
     positionGif(slideGif, slideIndex);
     // Update
     sf::Clock clock;
+    int debugCounter = 0;
     while (window.isOpen()) {
+        cout << to_string(debugCounter) << " ";
+        debugCounter++;
         sf::Event event;
         while (window.pollEvent(event)) {
             switch (event.type) {
@@ -178,11 +181,6 @@ int main() {
                             clock.restart();
                         }
                     }
-            }
-            // Update gif
-            if (clock.getElapsedTime().asMilliseconds() >= 100) {
-                updateGifFrame(slideGif, currentGif, store, gifFrameIndex);
-                clock.restart();
             }
         }
         window.clear(sf::Color(0, 0, 0, 255));
