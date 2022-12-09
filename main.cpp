@@ -120,7 +120,7 @@ void positionGif(sf::Sprite &gif, int currentGif) {
         gif.setPosition({1531,0});
         resize(gif, 1029, 1440);
     } else {
-        gif.setPosition({-1000,-1000});
+        gif.setPosition({2561,1441});
     }
 }
 
