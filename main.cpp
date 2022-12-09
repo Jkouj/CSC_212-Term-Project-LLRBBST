@@ -13,12 +13,8 @@ class TextureStore {
 public:
     Txr slideTxrs[40];
     Txr diagram1[55];
-    int diagram1Durations[55] = {100,50,100,50,50,50,200,50,50,50,
-                                 50,50,50,50,100,500,500,130,500,250,
-                                 500,50,50,50,500,50,50,50,500,50,
-                                 100,50,50,50,200,50,50,50,50,50,
-                                 50,50,100,500,150,100,400,50,50,
-                                 50,50,2500,500,100,100};
+    int diagram1Durations[55] = {100,50,100,50,50,50,200,50,50,50,50,50,50,50,1000,500,500,130,500,250,500,50,50,50,500,50,50,50,500,50,
+                                 100,50,50,50,200,50,50,50,50,50,50,50,100,500,150,100,400,50,50,50,50,100,2500,100,100};
     Txr diagram2[55];
     int diagram2Durations[55] = {50,50,50,50,50,
                                  50,50,500,500,500,
@@ -89,13 +85,13 @@ void setCurrentSlide(sf::Sprite &slideBG, Textbox &textbox, int slideIndex, Text
     else currentGif = -1;
 }
 
-void resize(sf::Sprite &sprite, int width, int height) {
+void resize(sf::Sprite &gif, int width, int height) {
     auto rect = gif.getTextureRect();
     gif.setScale(float(width) / float(rect.width), float(height) / float(rect.height));
 }
 
 void positionGif(sf::Sprite &gif, int currentGif) {
-    int pos = gif.getPosition();
+    auto pos = gif.getPosition();
     cout << currentGif << ": " << pos.x << ", " << pos.y << endl;
     if (currentGif == 0) {
         gif.setPosition({560,0});
@@ -110,16 +106,16 @@ void positionGif(sf::Sprite &gif, int currentGif) {
         gif.setPosition({1280,80});
         resize(gif, 1280, 1280);
     } else if (currentGif == 4) {
-        gif.setPosition({1737,0});
+        gif.setPosition({2090,0});
         resize(gif, 823, 1440);
     } else if (currentGif == 5) {
-        gif.setPosition({1737,0});
+        gif.setPosition({2090,0});
         resize(gif, 823, 1440);
     } else if (currentGif == 6) {
-        gif.setPosition({1737,0});
+        gif.setPosition({1970,0});
         resize(gif, 823, 1440);
     } else if (currentGif == 7) {
-        gif.setPosition({1531,0});
+        gif.setPosition({1970,0});
         resize(gif, 1029, 1440);
     } else {
         gif.setPosition({2561,1441});
