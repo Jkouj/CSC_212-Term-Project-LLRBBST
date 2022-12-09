@@ -160,7 +160,7 @@ int main() {
     
     while (window.isOpen()) {
         // Update gif
-        if (clock.getElapsedTime().asMilliseconds() >= 100) {
+        if (clock.getElapsedTime().asMilliseconds() >= currentDuration) {
             updateGifFrame(slideGif, currentGif, store, gifFrameIndex, currentDuration);
             clock.restart();
         }
